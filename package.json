@@ -1,0 +1,23 @@
+{
+  "name": "yukino",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "Risu",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@distube/spotify": "^1.2.1",
+    "@replit/database": "^2.0.2",
+    "discord.js": "^13.7.0",
+    "distube": "^3.3.4",
+    "express": "^4.18.1",
+    "glob": "^8.0.3",
+    "moment": "^2.29.3",
+    "mongoose": "^6.3.3"
+  }
+}
