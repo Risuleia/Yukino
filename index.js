@@ -43,5 +43,5 @@ require("./Handlers")(client);
 alive(client)
 
 // Logging in
-const token = process.env['TOKEN'];
+const token = process.env.TOKEN;
 client.login(token);

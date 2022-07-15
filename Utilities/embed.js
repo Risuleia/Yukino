@@ -45,7 +45,7 @@ const remove = async (message, name) => {
 
 	const embeds = await db.get('embeds')
 
-	if (!embeds || !embed.length || embed.length == 0) return message.channel.send({
+	if (!embeds || !embeds.length || embeds.length == 0) return message.channel.send({
 		content: "you dont have any embeds... create some pretty embeds!",
 		reply: { messageReference: message.id } 
 	})
@@ -55,16 +55,62 @@ const remove = async (message, name) => {
 	})
 
 	// remove embed
-	const emb = embeds.findIndex(emb => emb.name === embName)
-	embeds.remove(emb)
-	db.set('embeds', embeds)
+	const newEmbeds = embeds.filter(emb => emb.name !== embName)
+	db.set('embeds', newEmbeds)
 
 	message.channel.send(`${message.author.toString()}, i've succesfully removed that embed`)
 	
 }
 
+const edit = async (message, emb, prop, val) => {
+	
+	if (prop === "color") {
+		emb.embed.setColor(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+	}
+	if (prop === "title") {
+		emb.embed.setTitle(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+	}
+	if (prop === "description") {
+		emb.embed.setDescription(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+	}
+	if (prop === "image") {
+		emb.embed.setImage(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+	}
+	if (prop === "thumbnail") {
+		emb.embed.setThumbnail(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+	}
+	if (prop === "timestamp") {
+		emb.embed.setTimestamp(val)
+		message.channel.send({
+			embeds: [emb.embed]
+		})
+		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+	}
+		
+}
+
 module.exports = {
 	create: create,
 	add: add,
-	remove: remove
+	remove: remove,
+	edit: edit
 }
