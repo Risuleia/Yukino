@@ -4,10 +4,10 @@ module.exports = {
   description: "Displays the creator of the bot and other credits.",
   execute: async (client, message, args, db) => {
 
-    const risu = client.users.fetch("69362309971050501")
-    const mimi = client.users.fetch("92756667385317391")
+    const risu = await client.users.fetch("693623099710505041")
+    const mimi = await client.users.fetch("800686782114693180")
 
-    message.reply({ 
+    message.reply({
       content: `Created with ♡ by ${risu.username}#${risu.discriminator}!\nDebugged with assistance from ${mimi.username}#${mimi.discriminator}!`,
       allowedMentions: { repliedUser: false }
     })
