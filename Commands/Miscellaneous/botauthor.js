@@ -6,10 +6,16 @@ module.exports = {
 
     const risu = await client.users.fetch("693623099710505041")
     const mimi = await client.users.fetch("800686782114693180")
+    const content = `Created with ♡ by ${risu.toString()}!\nDebugged with assistance from ${mimi.toString()}!`
+
+    const emb = {
+      color: 0xe6d0ce,
+      description: content
+    }
 
     message.reply({
-      content: `Created with ♡ by ${risu.username}#${risu.discriminator}!\nDebugged with assistance from ${mimi.username}#${mimi.discriminator}!`,
-      allowedMentions: { repliedUser: false }
+      embeds: [emb],
+      allowedMentions: { repliedUser: false, users: false }
     })
   }
 }
