@@ -51,7 +51,7 @@ module.exports = async (client) => {
     });
 
 		// mongoose
-		const mongooseConnectionString = process.env.mongooseConnectionString
+		const mongooseConnectionString = process.env.MONGOOSECONNECTIONSTRING
 		if (!mongooseConnectionString) return;
 	
 		mongoose.connect(mongooseConnectionString)
