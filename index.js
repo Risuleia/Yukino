@@ -22,7 +22,7 @@ client.distube = new DisTube(client, {
 
 
 // Web server
-const alive = require('./server');
+// const alive = require('./server');
 
 // Global Variables
 client.commands = new Collection();
@@ -40,7 +40,7 @@ client.queues = new Map()
 require("./Handlers")(client);
 
 // Starting up the web server
-alive(client)
+// alive(client)
 
 // Logging in
 const token = process.env.TOKEN;
