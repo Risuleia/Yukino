@@ -4,6 +4,6 @@ const db = new Database();
 
 const emptyArr = []
 
-client.on('guildCreate', guild => {
-  db.set('censored_words', emptyArr)
-})
+// client.on('guildCreate', guild => {
+//   db.set('censored_words', emptyArr)
+// })

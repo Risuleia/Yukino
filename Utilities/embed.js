@@ -15,14 +15,16 @@ const create = (channel, emb) => {
 	let timestamp = emb.timestamp
 
 	const embed = new MessageEmbed()
-				.setColor(color)
-				.setTitle(title)
-				.setDescription(description)
-				.setImage(image ? image : null)
-				.setThumbnail(thumbnail ? thumbnail : null)
-				.setTimestamp(timestamp ? Date.now() : timestamp)
+			.setColor(color)
+			.setTitle(title)
+			.setDescription(description)
+			.setImage(image ? image : null)
+			.setThumbnail(thumbnail ? thumbnail : null)
+			.setTimestamp(timestamp ? Date.now() : null)
 
-	channel.send
+	channel.send({
+		embeds: [embed]
+	})
 
 }
 

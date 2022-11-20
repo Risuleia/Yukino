@@ -4,7 +4,7 @@ const db = new Database()
 
 module.exports = {
 	name: "embed",
-	aliases: ['emb'],
+	aliases: [],
 	description: "Stores, removes, edits, shows or sends an embed.",
 	usage: "<add/edit/remove/send/show/list> <embed name (if used with `send`, `show`, `remove` or `edit` subcmd) <channel mention (if used with `send` subcmd)|property to edit (if used with `edit` subcmd)>",
 	execute: async (client, message, args, db) => {
