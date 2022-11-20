@@ -20,7 +20,7 @@ const create = (channel, emb) => {
 			.setDescription(description)
 			.setImage(image ? image : null)
 			.setThumbnail(thumbnail ? thumbnail : null)
-			.setTimestamp(timestamp ? Date.now() : null)
+			.setTimestamp(!timestamp ? null : Date.now())
 
 	channel.send({
 		embeds: [embed]
