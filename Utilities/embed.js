@@ -2,9 +2,17 @@ const { MessageEmbed } = require('discord.js')
 const Database = require("@replit/database")
 const db = new Database()
 
-const create = (color = "ffffff", title = "Title here", description = "Description here", image = null, thumbnail = null, timestamp = null) => {
+const create = (channel, emb) => {
 
-	if (!title || !description) return
+	if (!emb) return
+	if (!emb.title || !emb.description) return
+
+	let color = emb.color
+	let title = emb.title
+	let description = emb.description
+	let image = emb.image
+	let thumbnail = emb.thumbnail
+	let timestamp = emb.timestamp
 
 	const embed = new MessageEmbed()
 				.setColor(color)
@@ -14,7 +22,7 @@ const create = (color = "ffffff", title = "Title here", description = "Descripti
 				.setThumbnail(thumbnail ? thumbnail : null)
 				.setTimestamp(timestamp ? Date.now() : timestamp)
 
-	return embed
+	channel.send
 
 }
 
