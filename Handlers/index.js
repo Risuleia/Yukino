@@ -51,9 +51,9 @@ module.exports = async (client) => {
     });
 
 		// mongoose
-		// const mongooseConnectionString = process.env.mongooseConnectionString
-		// if (!mongooseConnectionString) return;
+		const mongooseConnectionString = process.env.MONGOOSECONNECTIONSTRING
+		if (!mongooseConnectionString) return;
 	
-		// mongoose.connect(mongooseConnectionString)
-		// 	.then(() => console.log('Connected to MongoDB'));
+		mongoose.connect(mongooseConnectionString)
+			.then(() => console.log('Connected to MongoDB'));
 }

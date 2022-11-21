@@ -1,6 +1,5 @@
 const client = require("../index");
-const Database = require("@replit/database");
-const db = new Database();
+const db = require("../db");
 
 client.on("messageCreate", async message => {
     if (

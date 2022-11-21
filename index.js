@@ -3,8 +3,6 @@ const { Client, Collection } = require("discord.js");
 const { DisTube } = require("distube");
 const { SpotifyPlugin } = require("@distube/spotify");
 const fs = require('fs');
-const Database = require("@replit/database")
-const db = new Database()
 
 // Creating the client
 const client = new Client({

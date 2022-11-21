@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const Database = require("@replit/database")
-const db = new Database()
+const db = require('../db')
 
 const create = (channel, emb) => {
 
@@ -38,8 +37,8 @@ const add = async (message, embed, name) => {
 	newEmb.name = name
 
 	// add embed
-	embeds.push(newEmb)
-	db.set('embeds', embeds)
+	// embeds.push(newEmb)
+	db.push('embeds', newEmb)
 
 	message.channel.send(`${message.author.toString()}, i've succesfully added your embed :)`)
 	
@@ -51,7 +50,6 @@ const remove = async (message, name) => {
 		content: "pls specify the name of the embed you want to delete... might as well reconsider if you did this by mistake :/",
 		reply: { messageReference: message.id }
 	})
-	const embName = name.toLowerCase()
 
 	const embeds = await db.get('embeds')
 
@@ -59,13 +57,13 @@ const remove = async (message, name) => {
 		content: "you dont have any embeds... create some pretty embeds!",
 		reply: { messageReference: message.id } 
 	})
-	if (!embeds.some(emb => emb.name == embName)) return message.channel.send({
+	if (!embeds.some(emb => emb.name == name)) return message.channel.send({
 		content: "that embed doesnt exist!",
 		reply: { messageReference: message.id }
 	})
 
 	// remove embed
-	const newEmbeds = embeds.filter(emb => emb.name !== embName)
+	const newEmbeds = embeds.filter(emb => emb.name !== name)
 	db.set('embeds', newEmbeds)
 
 	message.channel.send(`${message.author.toString()}, i've succesfully removed that embed`)
@@ -74,48 +72,49 @@ const remove = async (message, name) => {
 
 const edit = async (message, emb, prop, val) => {
 	
+	const chan = message.channel
+	const embeds = await db.get('embeds')
+	const id = embeds.findIndex(e => e.name === emb.name)
+	const selected = embeds[id]
+	
 	if (prop === "color") {
-		emb.embed.setColor(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
-		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+		emb.embed.color = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
 	if (prop === "title") {
-		emb.embed.setTitle(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
-		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+		emb.embed.title = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
 	if (prop === "description") {
-		emb.embed.setDescription(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
-		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+		emb.embed.description = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
 	if (prop === "image") {
-		emb.embed.setImage(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
-		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+		emb.embed.image = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
 	if (prop === "thumbnail") {
-		emb.embed.setThumbnail(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
+		emb.embed.thumbnail = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
 	if (prop === "timestamp") {
-		emb.embed.setTimestamp(val)
-		message.channel.send({
-			embeds: [emb.embed]
-		})
-		.then(m => m.channel.send(`${m.author.toString()}, i've succesfully edited that embed :)`))
+		emb.embed.timestamp = val
+		create(chan, emb.embed)
+		chan.send(`${message.author.toString()}, i've succesfully edited that embed :)`)
 	}
-		
+
+	const newEmb = {
+		name: selected.name,
+		embed: emb.embed
+	}
+	const newEmbeds = embeds.splice(id, 1, newEmb)
+	db.set('embeds', newEmbeds)
+	
 }
 
 module.exports = {

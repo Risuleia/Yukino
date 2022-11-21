@@ -8,7 +8,7 @@ module.exports = {
 	usage: `<title> | <choice 1>; <choice 2>...`,
 	execute: async (client, message, args, db) => {
 
-		const pollManager = await db.get('poll_manager')
+		const pollManager = await db.get('serverconf').pollmanager
 
 		// number emotes
 		let num = [numbers.one, numbers.two, numbers.three, numbers.four, numbers.five, numbers.six, numbers.seven, numbers.eight, numbers.nine];
