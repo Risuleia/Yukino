@@ -42,7 +42,7 @@ module.exports = {
         const boost = await channel(config.boost)
         const polls = await channel(config.polls)
         
-        const desc = `╭  ˚₊  __Staff__\n │ Admin Role: ${admin}\n │ Head-Mod Role: ${headmod}\n │ Mod Role: ${mod}\n │ T-Mod Role: ${tmod}\n\n╭  ˚₊  __Roles__\n │ Head Partner Manager: ${headpm}\n │ Partnership Manager: ${pm}\n │ Poll Manager: ${pollmanager}\n │ Uploader: ${uploader}\n │ Mute-role: ${muterole}\n\n╭  ˚₊  __Channels__\n │ Announcements: ${announcements}\n │ Welcome: ${welcome}\n │ Boost: ${boost}\n │ Polls: ${polls}`
+        const desc = `  ˚₊  __Staff__\nAdmin Role: ${admin}\nHead-Mod Role: ${headmod}\nMod Role: ${mod}\nT-Mod Role: ${tmod}\n\n  ˚₊  __Roles__\nHead Partner Manager: ${headpm}\nPartnership Manager: ${pm}\nPoll Manager: ${pollmanager}\n Uploader: ${uploader}\nMute-role: ${muterole}\n\n  ˚₊  __Channels__\nAnnouncements: ${announcements}\nWelcome: ${welcome}\nBoost: ${boost}\n Polls: ${polls}`
         
         const emb = {
             color: 0xabcedf,
