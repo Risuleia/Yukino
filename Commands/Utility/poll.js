@@ -8,7 +8,7 @@ module.exports = {
 	usage: `<title> | <choice 1>; <choice 2>...`,
 	execute: async (client, message, args, db) => {
 
-		const pollManager = await db.get('serverconf').pollmanager
+		const polls = await db.get('serverconf').polls
 
 		// number emotes
 		let num = [numbers.one, numbers.two, numbers.three, numbers.four, numbers.five, numbers.six, numbers.seven, numbers.eight, numbers.nine];
@@ -52,12 +52,18 @@ module.exports = {
 			.map(n => n.match(idRe)[0])
 
 		// sending and adding the reactions
-		message.channel.send({
+		const chan = await message.guild.channels.cache.find(c => c.id === polls) || message.channel
+
+		chan.send({
 			embeds: [emb]
 		})
 		.then(message => {
 			reactions.forEach(reaction => message.react(reaction))
 		})
-		if (message) message.delete()
+		try {
+			if (message) message.delete()
+		} catch (err) {
+			throw err
+		}
 	}
 }

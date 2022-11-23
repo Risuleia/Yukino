@@ -1,8 +1,7 @@
 module.exports = {
     name: "serverconfig",
-    aliases: ['serverconfig','config', 'conf'],
+    aliases: ['serverconfig', 'serverconf', 'config', 'conf'],
     description: "Shows and changes information related to the server configuration",
-    usage: "[settings] <value>",
     userPermissions: ['ADMINISTRATOR'],
     execute: async (client, message, args, db) => {
 
