@@ -1,4 +1,5 @@
 const db = require("../../db")
+const translate = require("../../Models/translator")
 const { create } = require("../embed")
 
 const embsend = async (message, args) => {
@@ -22,9 +23,18 @@ const embsend = async (message, args) => {
         reply: { messageReference: message.id }
     })
 
-    const emb = embeds.find(emb => emb.name === arg)
+    const emb = embeds.find(emb => emb.name === arg)?.embed
 
-    create(chan, emb.embed)
+    const translated = {
+        color: await translate(message.author, message.guild, chan, emb.color),
+        title: await translate(message.author, message.guild, chan, emb.title),
+        description: await translate(message.author, message.guild, chan, emb.description),
+        image: emb.image ? await translate(message.author, message.guild, chan, emb.image) : emb.image,
+        thumbnail: emb.thumbnail ? await translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
+        timestamp: emb.timestamp ? await translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
+    }
+    // console.log(translated)
+    await create(chan, translated)
 
 }
 

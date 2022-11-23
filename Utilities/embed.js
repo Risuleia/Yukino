@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 const db = require('../db')
 
-const create = (channel, emb) => {
+const create = async (channel, emb) => {
 
 	if (!emb) return
 	if (!emb.title || !emb.description) return
@@ -21,7 +21,7 @@ const create = (channel, emb) => {
 			.setThumbnail(thumbnail ? thumbnail : null)
 			.setTimestamp(!timestamp ? null : Date.now())
 
-	channel.send({
+	await channel.send({
 		embeds: [embed]
 	})
 

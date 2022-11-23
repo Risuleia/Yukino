@@ -1,3 +1,4 @@
+const translate = require("../../Models/translator")
 const construct = require("../emb")
 const { create, add } = require("../embed")
 
@@ -106,13 +107,21 @@ const embcreate = async (message) => {
                                                     // name
                                                     chan.send(states[6])
                                                     chan.awaitMessages({ filter: name_filter, max: 1, time: 60000 })
-                                                        .then(name => {
+                                                        .then(async name => {
                                                             name = name.first().content.split(space,1)[0]
 
                                                             const emb = construct(color, title, description, image, thumbnail, timestamp)
+                                                            const translated = {
+                                                                color: await translate(message.author, message.guild, chan, emb.color),
+                                                                title: await translate(message.author, message.guild, chan, emb.title),
+                                                                description: await translate(message.author, message.guild, chan, emb.description),
+                                                                image: emb.image ? await translate(message.author, message.guild, chan, emb.image) : emb.image,
+                                                                thumbnail: emb.thumbnail ? await translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
+                                                                timestamp: emb.timestamp ? await translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
+                                                            }
                                                             add(message, emb, name)
-                                                            create(chan, emb)
-
+                                                            create(chan, translated)
+                                                            
                                                 })
                                         })
                                 })
