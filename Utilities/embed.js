@@ -21,7 +21,7 @@ const create = async (channel, emb) => {
 			.setThumbnail(thumbnail ? thumbnail : null)
 			.setTimestamp(!timestamp ? null : Date.now())
 
-	await channel.send({
+	channel.send({
 		embeds: [embed]
 	})
 

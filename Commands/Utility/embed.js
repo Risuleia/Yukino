@@ -1,5 +1,4 @@
 const { create, remove, edit } = require("../../Utilities/embed")
-const Database = require('@replit/database')
 const embcreate = require("../../Utilities/embed-utils/emb-create")
 const embsend = require("../../Utilities/embed-utils/emb-send")
 const embedit = require("../../Utilities/embed-utils/emb-edit")

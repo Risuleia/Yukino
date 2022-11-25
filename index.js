@@ -32,7 +32,8 @@ client.snipes = new Collection();
 client.react_snipes = new Collection();
 client.edit_snipes = new Collection();
 client.afk = new Collection();
-client.queues = new Map()
+client.queues = new Map();
+client.servers = new Collection();
 
 // Initializing the project
 require("./Handlers")(client);

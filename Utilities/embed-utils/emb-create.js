@@ -40,10 +40,10 @@ const embcreate = async (message) => {
         return (m.content.split("").length <= 4096 && m.author.id === message.author.id)
     }
     const image_filter = m => {
-        return ((img.test(m.content) || ["skip", "skip", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["skip", "skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const thumbnail_filter = m => {
-        return ((img.test(m.content) || ["skip", "skip", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["skip", "skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const timestamp_filter = m => {
         return ((['skip', 'cancel', 'yes', 'no'].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
@@ -57,8 +57,8 @@ const embcreate = async (message) => {
         "What should the color of your embed be?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- \"Skip\" (Goes with the default color of white.)",
         "What will your embed be about? Send the title! (cannot be omitted)",
         "Next, tell me what your embed will say. Send the description. (cannot be omitted)",
-        "Does your embed need an image? If yes, respond with a valid image URL. Otherwise, type \"skip\".",
-        "Need a thumbnail for your pretty embed? Respond with a valid image URL. Type \"skip\" if it doesn't need one.",
+        "Does your embed need an image? If yes, respond with a valid image URL, or use variables like {user_avatar} or {server_icon}. Otherwise, type \"skip\".",
+        "Need a thumbnail for your pretty embed? Respond with a valid image URL, or use variables like {user_avatar} or {server_icon}. Type \"skip\" if it doesn't need one.",
         "Almost there!\nTell me if your embed needs a timestamp on it. (Yes/No)",
         "Finally, name your embed! (No Spaces!)"
     ]
@@ -67,7 +67,7 @@ const embcreate = async (message) => {
     chan.send(states[0])
     chan.awaitMessages({ filter: color_filter, max: 1, time: 60000 })
         .then(color => {
-            if (color.first().content.toLowerCase() === "cancel") return chan.send("operation cancelled")
+            if (color.first().content.toLowerCase() === "cancel") return cancel()
             color = (color.first().content.toLowerCase() === "random") ? "RANDOM" : (color.first().content.toLowerCase() === "skip") ? "ffffff" : color.first().content
             // title
             chan.send(states[1])
@@ -112,12 +112,12 @@ const embcreate = async (message) => {
 
                                                             const emb = construct(color, title, description, image, thumbnail, timestamp)
                                                             const translated = {
-                                                                color: await translate(message.author, message.guild, chan, emb.color),
-                                                                title: await translate(message.author, message.guild, chan, emb.title),
-                                                                description: await translate(message.author, message.guild, chan, emb.description),
-                                                                image: emb.image ? await translate(message.author, message.guild, chan, emb.image) : emb.image,
-                                                                thumbnail: emb.thumbnail ? await translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
-                                                                timestamp: emb.timestamp ? await translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
+                                                                color: translate(message.author, message.guild, chan, color),
+                                                                title: translate(message.author, message.guild, chan, title),
+                                                                description: translate(message.author, message.guild, chan, description),
+                                                                image: emb.image ? translate(message.author, message.guild, chan, image) : emb.image,
+                                                                thumbnail: emb.thumbnail ? translate(message.author, message.guild, chan, thumbnail) : emb.thumbnail,
+                                                                timestamp: emb.timestamp ? translate(message.author, message.guild, chan, timestamp) : emb.timestamp
                                                             }
                                                             add(message, emb, name)
                                                             create(chan, translated)

@@ -1,70 +1,82 @@
+const client = require('../index')
+
 const placeholders = {
-    user: async (user, guild, chan) => {
+    user: (user, guild, chan) => {
         return user.toString()
     },
-    user_tag: async (user, guild, chan) => {
+    user_tag: (user, guild, chan) => {
         return `${user.username}#${user.discriminator}`
     },
-    user_name: async (user, guild, chan) => {
+    user_name: (user, guild, chan) => {
         return user.username
     },
-    user_nick: async (user, guild, chan) => {
-        return user.displayName
+    user_nick: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+				const member = server.members.cache.find(u => u.id === user.id)
+        return member.displayName
     },
-    user_avatar: async (user, guild, chan) => {
+    user_avatar: (user, guild, chan) => {
         return user.avatarURL({ dynamic: true })
     },
-    user_discrim: async (user, guild, chan) => {
+    user_discrim: (user, guild, chan) => {
         return user.discriminator
     },
-    user_id: async (user, guild, chan) => {
+    user_id: (user, guild, chan) => {
         return user.id
     },
-    user_displaycolor: async (user, guild, chan) => {
-        return user.displayHexColor
+    user_displaycolor: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+				const member = server.members.cache.find(u => u.id === user.id)
+        return member.displayHexColor
     },
-    server_name: async (user, guild, chan) => {
+    server_name: (user, guild, chan) => {
         return guild.name
     },
-    server_id: async (user, guild, chan) => {
+    server_id: (user, guild, chan) => {
         return guild.id
     },
-    server_icon: async (user, guild, chan) => {
+    server_icon: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
         return guild.iconURL({ dynamic: true })
     },
-    server_owner: async (user, guild, chan) => {
-        const owner = await guild.fetchOwner()
+    server_owner: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+        const owner = client.users.cache.find(u => u.id === server.ownerId)
         return owner.toString()
     },
-    server_owner_id: async (user, guild, chan) => {
+    server_owner_id: (user, guild, chan) => {
         return guild.ownerId
     },
-    server_membercount: async (user, guild, chan) => {
+    server_membercount: (user, guild, chan) => {
         return guild.memberCount
     },
-    server_humancount: async (user, guild, chan) => {
-        const humans = await guild.members.cache.find(u => !u.user.bot)
+    server_humancount: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+        const humans = server.members.cache.filter(u => !u.user.bot)
         return humans.length
     },
-    server_botcount: async (user, guild, chan) => {
-        const bots = await guild.members.cache.find(u => u.user.bot)
+    server_botcount: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+        const bots = server.members.cache.filter(u => u.user.bot)
         return bots.length
     },
-    server_rolecount: async (user, guild, chan) => {
-        const roles = await guild.roles
-        return roles.size
+    server_rolecount: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+        const roles = server.roles
+        return roles.length
     },
-    server_channelcount: async (user, guild, chan) => {
-        const channels = await guild.channel
-        return channels.size
+    server_chancount: (user, guild, chan) => {
+				const server = client.servers.get(guild.id)
+        const channels = server.channels
+        return channels.length
     },
-    boostcount: async (user, guild, chan) => {
+    boostcount: (user, guild, chan) => {
         return guild.premiumSubscriptionCount
     },
-    channel: async (chan) => {
+    channel: (user, guild, chan) => {
         return chan.toString()
     },
-    channel_id: async (chan) => {
+    channel_id: (user, guild, chan) => {
         return chan.id
     }
 }
