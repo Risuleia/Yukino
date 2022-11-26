@@ -31,7 +31,7 @@ const embcreate = async (message) => {
     
     // filters
     const color_filter = m => {
-        return ((hex.test(m.content) || ["skip", "random", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((hex.test(m.content) || ["{user_displaycolor}", "skip", "random", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const title_filter = m => {
         return (m.content.split("").length <= 256 && m.author.id === message.author.id)
@@ -54,11 +54,11 @@ const embcreate = async (message) => {
 
     // responses
     const states = [
-        "What should the color of your embed be?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- \"Skip\" (Goes with the default color of white.)",
+        "What should the color of your embed be?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- A variable like \`{user_displaycolor}\`\n- \"Skip\" (Goes with the default color of white.)",
         "What will your embed be about? Send the title! (cannot be omitted)",
         "Next, tell me what your embed will say. Send the description. (cannot be omitted)",
-        "Does your embed need an image? If yes, respond with a valid image URL, or use variables like {user_avatar} or {server_icon}. Otherwise, type \"skip\".",
-        "Need a thumbnail for your pretty embed? Respond with a valid image URL, or use variables like {user_avatar} or {server_icon}. Type \"skip\" if it doesn't need one.",
+        "Does your embed need an image? If yes, respond with a valid image URL, or use variables like \`{user_avatar}\` or \`{server_icon}\`. Otherwise, type \"skip\".",
+        "Need a thumbnail for your pretty embed? Respond with a valid image URL, or use variables like \`{user_avatar}\` or \`{server_icon}\`. Type \"skip\" if it doesn't need one.",
         "Almost there!\nTell me if your embed needs a timestamp on it. (Yes/No)",
         "Finally, name your embed! (No Spaces!)"
     ]

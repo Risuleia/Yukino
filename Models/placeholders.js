@@ -12,7 +12,7 @@ const placeholders = {
     },
     user_nick: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-				const member = server.members.cache.find(u => u.id === user.id)
+				const member = server.members.find(u => u.id === user.id)
         return member.displayName
     },
     user_avatar: (user, guild, chan) => {
@@ -26,7 +26,7 @@ const placeholders = {
     },
     user_displaycolor: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-				const member = server.members.cache.find(u => u.id === user.id)
+				const member = server.members.find(u => u.id === user.id)
         return member.displayHexColor
     },
     server_name: (user, guild, chan) => {
@@ -37,11 +37,11 @@ const placeholders = {
     },
     server_icon: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-        return guild.iconURL({ dynamic: true })
+        return server.guild.iconURL({ dynamic: true })
     },
     server_owner: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-        const owner = client.users.cache.find(u => u.id === server.ownerId)
+        const owner = client.users.cache.find(u => u.id === server.guild.ownerId)
         return owner.toString()
     },
     server_owner_id: (user, guild, chan) => {
@@ -52,23 +52,23 @@ const placeholders = {
     },
     server_humancount: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-        const humans = server.members.cache.filter(u => !u.user.bot)
-        return humans.length
+        const humans = server.members.filter(u => !u.user.bot)
+        return humans.size
     },
     server_botcount: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-        const bots = server.members.cache.filter(u => u.user.bot)
-        return bots.length
+        const bots = server.members.filter(u => u.user.bot)
+        return bots.size
     },
     server_rolecount: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
         const roles = server.roles
-        return roles.length
+        return roles.size - 1
     },
     server_chancount: (user, guild, chan) => {
 				const server = client.servers.get(guild.id)
-        const channels = server.channels
-        return channels.length
+        const channels = server.channels.filter(c => ['GUILD_TEXT', 'GUILD_VOICE', 'GUILD_STAGE'].some(a => a === c.type))
+        return channels.size
     },
     boostcount: (user, guild, chan) => {
         return guild.premiumSubscriptionCount
