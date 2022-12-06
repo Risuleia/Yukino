@@ -1,5 +1,6 @@
 const db = require('../../db')
 const { edit } = require("../embed")
+const translate_emotes = require('../../Models/emote-translator')
 
 const embedit = async (message, args) => {
 
@@ -126,7 +127,7 @@ const embedit = async (message, args) => {
                 stateMsg.edit(states[6])
             }
             if (id === 1 || id === 2) {
-                val = resp
+                val = translate_emotes(resp, message.guild)
                 msg.delete()
                 embMsg.edit({
                     embeds: [{

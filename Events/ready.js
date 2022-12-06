@@ -15,7 +15,8 @@ client.on("ready", async () => {
 			guild: guild,
 			members: await guild.members.cache,
 			roles: await guild.roles.cache,
-			channels: await guild.channels.cache
+			channels: await guild.channels.cache,
+			emotes: await guild.emojis.cache
 		}
 		client.servers.set(guild.id, obj)
 	})

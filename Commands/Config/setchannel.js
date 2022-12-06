@@ -2,6 +2,7 @@ module.exports = {
     name: "setchannel",
     aliases: ['setchan', 'setc'],
     description: "Sets a specific channel for the server configuration.",
+		userPermissions: ['ADMINISTRATOR'],
     execute: async (client, message, args, db) => {
         
         const chan = message.channel

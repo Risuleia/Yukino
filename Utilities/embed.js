@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 const db = require('../db')
 
-const create = async (channel, emb) => {
+const create = async (channel, emb, author = null, content = false) => {
 
 	if (!emb) return
 	if (!emb.title || !emb.description) return
@@ -21,6 +21,16 @@ const create = async (channel, emb) => {
 			.setThumbnail(thumbnail ? thumbnail : null)
 			.setTimestamp(!timestamp ? null : Date.now())
 
+	if (author) embed.setAuthor({
+		name: `${author.user.username}#${author.user.discriminator}`,
+		iconURL: await author.displayAvatarURL({ dynamic: true })
+	})
+
+	if (content && author) return channel.send({
+		content: `**Hiii! ${author.toString()}**`,
+		embeds: [embed]
+	})
+		
 	channel.send({
 		embeds: [embed]
 	})
@@ -37,8 +47,9 @@ const add = async (message, embed, name) => {
 	newEmb.name = name
 
 	// add embed
-	// embeds.push(newEmb)
-	db.push('embeds', newEmb)
+	embeds.push(newEmb)
+	db.set('embeds', embeds)
+	// db.push('embeds', newEmb)
 
 	message.channel.send(`${message.author.toString()}, i've succesfully added your embed :)`)
 	

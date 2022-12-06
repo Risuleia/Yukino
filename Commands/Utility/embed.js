@@ -1,4 +1,4 @@
-const { create, remove, edit } = require("../../Utilities/embed")
+const { remove } = require("../../Utilities/embed")
 const embcreate = require("../../Utilities/embed-utils/emb-create")
 const embsend = require("../../Utilities/embed-utils/emb-send")
 const embedit = require("../../Utilities/embed-utils/emb-edit")

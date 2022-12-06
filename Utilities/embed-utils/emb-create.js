@@ -1,4 +1,5 @@
 const translate = require("../../Models/translator")
+const translate_emotes = require("../../Models/emote-translator")
 const construct = require("../emb")
 const { create, add } = require("../embed")
 
@@ -74,14 +75,14 @@ const embcreate = async (message) => {
             chan.awaitMessages({ filter: title_filter, max: 1, time: 60000 })
                 .then(title => {
                     if (title.first().content.toLowerCase() === "cancel") return cancel()
-                    title = title.first().content
+                    title = translate_emotes(title.first().content, message.guild)
 
                     // description
                     chan.send(states[2])
                     chan.awaitMessages({ filter: description_filter, max: 1, time: 60000 })
                         .then(description => {
                             if (description.first().content.toLowerCase() === "cancel") return cancel()
-                            description = description.first().content
+                            description = translate_emotes(description.first().content, message.guild)
 
                             // image
                             chan.send(states[3])
