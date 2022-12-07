@@ -35,7 +35,7 @@ module.exports = {
 		const embeds = await db.get("embeds")
 		const conf = await db.get('serverconf')
 
-		if (embeds.some(emb => emb.name != setting) && setting?.toLowerCase() != "remove") return chan.send({
+		if (!embeds.some(emb => emb.name == setting) && setting?.toLowerCase() != "remove") return chan.send({
 			content: "not a valid option",
 			reply: { messageReference: message.id }
 		})

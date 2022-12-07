@@ -70,14 +70,57 @@ const placeholders = {
         const channels = server.channels.filter(c => ['GUILD_TEXT', 'GUILD_VOICE', 'GUILD_STAGE'].some(a => a === c.type))
         return channels.size
     },
-    boostcount: (user, guild, chan) => {
-        return guild.premiumSubscriptionCount
-    },
     channel: (user, guild, chan) => {
         return chan.toString()
     },
     channel_id: (user, guild, chan) => {
         return chan.id
+    },
+    boostcount: (user, guild, chan) => {
+        return guild.premiumSubscriptionCount
+    },
+    boostlvl: (user, guild, chan) => {
+        const tier = guild.premiumTier
+        let lvl = 0
+        if (tier === "NONE") lvl = 0
+        else if (tier === "TIER_1") lvl = 1
+        else if (tier === "TIER_2") lvl = 2
+        else if (tier === "TIER_3") lvl = 3
+        return lvl
+    },
+    next_boostlvl: (user, guild, chan) => {
+        const tier = guild.premiumTier
+        let nextlvl = 0
+        if (tier === "NONE") nextlvl = 1
+        else if (tier === "TIER_1") nextlvl = 2
+        else if (tier === "TIER_2") nextlvl = 3
+        else if (tier === "TIER_3") nextlvl = 'Max Reached'
+        return nextlvl
+    },
+    next_boostlvl_reqd: (user, guild, chan) => {
+
+        const current = guild.premiumSubscriptionCount
+        const tier = guild.premiumTier
+
+        let lvl = 0
+        let nextlvl = lvl == 3 ? 3 : lvl + 1
+        if (tier === "NONE") lvl = 0
+        else if (tier === "TIER_1") lvl = 1
+        else if (tier === "TIER_2") lvl = 2
+        else if (tier === "TIER_3") lvl = 3
+
+        const reqd = {
+            1: 2,
+            2: 7,
+            3: 14
+        }
+
+        function calc(next) {
+            let res = reqd[next] - current
+            if (res < 0.0) res = 'Max Reached'
+            return res
+        }
+        return calc(nextlvl)
     }
 }
 

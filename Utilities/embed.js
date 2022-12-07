@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const db = require('../db')
+const check = require('./check')
 
 const create = async (channel, emb, author = null, content = false) => {
 
@@ -78,6 +79,8 @@ const remove = async (message, name) => {
 	db.set('embeds', newEmbeds)
 
 	message.channel.send(`${message.author.toString()}, i've succesfully removed that embed`)
+
+	check()
 	
 }
 
@@ -123,8 +126,8 @@ const edit = async (message, emb, prop, val) => {
 		name: selected.name,
 		embed: emb.embed
 	}
-	const newEmbeds = embeds.splice(id, 1, newEmb)
-	db.set('embeds', newEmbeds)
+	embeds.splice(id, 1, newEmb)
+	db.set('embeds', embeds)
 	
 }
 

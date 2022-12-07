@@ -2,12 +2,11 @@ const client = require('../index')
 
 const translate_emotes = (str, guild) => {
 
-	const server = client.servers.get(guild.id)
-	let emotes = server.emotes
+	const emotes = client.servers.get(guild.id).emotes
 	let regex = /(<a?)?:?(\w+):?(\d{18})?>?/gm
 
 	const findemote = (match) => {
-		let name = match.replace(/<|a|:|>|\d{18}/g,"")
+		let name = match.replace(/<|(<a)|:|>|\d{18}/g,"")
 		const emote = emotes.find(e => e.name == name)
 		if (!emote) return match
 		else return emote
