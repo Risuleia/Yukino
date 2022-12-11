@@ -7,8 +7,8 @@ const check = async () => {
 	const embeds = await db.get('embeds')
 	const conf = await db.get('serverconf')
 	Object.keys(conf).forEach(key => {
-		console.log(mariposa.roles.cache.some(r => r.id === conf[key]) || mariposa.channels.cache.some(c => c.id === conf[key]))
-        // console.log(conf)
+		if (!(mariposa.roles.cache.some(r => r.id === conf[key]) || mariposa.channels.cache.some(c => c.id === conf[key]) || embeds.some(emb => emb.name === conf[key]))) conf[key] = null
+		else return
 	})
 }
 
