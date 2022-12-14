@@ -1,15 +1,15 @@
-const client = require('../index');
+// const client = require('../index');
 
-client.on('messageDelete', message => {
-	if (message.author.bot) return;
+// client.on('messageDelete', message => {
+// 	if (message.author.bot) return;
 
-	let snipes = client.snipes.get(message.channel.id) || [];
+// 	let snipes = client.snipes.get(message.channel.id) || [];
 
-	snipes.unshift({
-		msg: message,
-		image: message.attachments.first()?.proxyURL || null,
-		time: Date.now()
-	});
+// 	snipes.unshift({
+// 		msg: message,
+// 		image: message.attachments.first()?.proxyURL || null,
+// 		time: Date.now()
+// 	});
 
-	client.snipes.set(message.channel.id, snipes)
-});
+// 	client.snipes.set(message.channel.id, snipes)
+// });

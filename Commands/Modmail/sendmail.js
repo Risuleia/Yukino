@@ -1,6 +1,7 @@
 const { blockQuote, underscore, quote } = require("@discordjs/builders")
 const { EmbedBuilder } = require("discord.js")
 const { numbers } = require("../../Utilities/emotes")
+const { addmail } = require("../../Utilities/modmail")
 
 module.exports = {
     name: "sendmail",
@@ -19,10 +20,10 @@ module.exports = {
 
         const mariposa = client.guilds.cache.find(g => g.id == '879726321155051530')
 
-        const members = mariposa.members.fetch({ force: true })
-        const bans = mariposa.bans.cache.fetch({ force: true })
+        const members = mariposa.members.cache
+        const bans = mariposa.bans.cache
 
-        if (!(members.has(user.id) || bans.has(user.id))) return message.reply({
+        if (!(members.find(u => u.id === user.id) || bans.find(b => b.user.id === user.id))) return message.reply({
             embeds: [
                 new EmbedBuilder()
                     .setColor('ac94f4')
@@ -33,19 +34,7 @@ module.exports = {
             ]
         })
 
-        const instructions = `${numbers.one}**.**  You can only create one mail channel.\n${numbers.two}**.**  If you're found to be trolling using this utility, you'll get blacklisted from using it.\n${numbers.three}**.**  The server staff will respond to your mail in due time. Be patient.\n${numbers.four}**.**  Deletion of a text doesn't delete it on the staff's side.`
-        const desc = `Welcome to the Modmail Utility of the mimi's server!\n\n${underscore('Kindly read through the instructions given below:')}\n${instructions}` + "\n\nThat's all. Now, send your mail."
-
-        const emb = new EmbedBuilder()
-                .setColor('ac94f4')
-                .setAuthor({ name: mariposa.name, iconURL: mariposa.iconURL({ dynamic: true }) })
-                .setTitle('Modmail Utility')
-                .setDescription(desc)
-                .setTimestamp(Date.now())
-
-        message.channel.send({
-            embeds: [emb]
-        })
+        addmail(message, user)
 
     }
 }

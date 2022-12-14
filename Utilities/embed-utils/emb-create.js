@@ -68,49 +68,49 @@ const embcreate = async (message) => {
     // color
     chan.send(states[0])
     chan.awaitMessages({ filter: color_filter, max: 1, time: 60000 })
-        .then(color => {
-            if (color.first().content.toLowerCase() === "cancel") return cancel()
-            color = (color.first().content.toLowerCase() === "random") ? "RANDOM" : (color.first().content.toLowerCase() === "skip") ? "ffffff" : color.first().content
+        .then(clr => {
+            if (clr.first().content.toLowerCase() === "cancel") return cancel()
+            color = (clr.first().content.toLowerCase() === "random") ? "RANDOM" : (clr.first().content.toLowerCase() === "skip") ? "ffffff" : color.first().content
             // title
             chan.send(states[1])
             chan.awaitMessages({ filter: title_filter, max: 1, time: 60000 })
-                .then(title => {
-                    if (title.first().content.toLowerCase() === "cancel") return cancel()
-                    title = translate_emotes(title.first().content, message.guild)
+                .then(ttl => {
+                    if (ttl.first().content.toLowerCase() === "cancel") return cancel()
+                    title = translate_emotes(ttl.first().content, message.guild)
 
                     // description
                     chan.send(states[2])
                     chan.awaitMessages({ filter: description_filter, max: 1, time: 60000 })
-                        .then(description => {
-                            if (description.first().content.toLowerCase() === "cancel") return cancel()
-                            description = translate_emotes(description.first().content, message.guild)
+                        .then(desc => {
+                            if (desc.first().content.toLowerCase() === "cancel") return cancel()
+                            description = translate_emotes(desc.first().content, message.guild)
 
                             // image
                             chan.send(states[3])
                             chan.awaitMessages({ filter: image_filter, max: 1, time: 60000 })
-                                .then(image => {
-                                    if (image.first().content.toLowerCase() === "cancel") return cancel()
-                                    image = (image.first().content.toLowerCase() === "skip") ? null : image.first().content
+                                .then(imge => {
+                                    if (imge.first().content.toLowerCase() === "cancel") return cancel()
+                                    image = (imge.first().content.toLowerCase() === "skip") ? null : imge.first().content
 
                                     // thumbnail
                                     chan.send(states[4])
                                     chan.awaitMessages({ filter: thumbnail_filter, max: 1, time: 60000 })
-                                        .then(thumbnail => {
-                                            if (thumbnail.first().content.toLowerCase() === "cancel") return cancel()
-                                            thumbnail = (thumbnail.first().content.toLowerCase() === "skip") ? null : thumbnail.first().content
+                                        .then(thumb => {
+                                            if (thumb.first().content.toLowerCase() === "cancel") return cancel()
+                                            thumbnail = (thumb.first().content.toLowerCase() === "skip") ? null : thumb.first().content
 
                                             // timestamp
                                             chan.send(states[5])
                                             chan.awaitMessages({ filter: timestamp_filter, max: 1, time: 60000 })
-                                                .then(timestamp => {
-                                                    if (timestamp.first().content.toLowerCase() === "cancel") return cancel()
-                                                    timestamp = (timestamp.first().content.toLowerCase() === "yes") ? true : false
+                                                .then(tmsp => {
+                                                    if (tmsp.first().content.toLowerCase() === "cancel") return cancel()
+                                                    timestamp = (tmsp.first().content.toLowerCase() === "yes") ? true : false
 
                                                     // name
                                                     chan.send(states[6])
                                                     chan.awaitMessages({ filter: name_filter, max: 1, time: 60000 })
-                                                        .then(async name => {
-                                                            name = name.first().content.split(space,1)[0]
+                                                        .then(async a => {
+                                                            name = a.first().content.split(space,1)[0]
 
                                                             const emb = construct(color, title, description, image, thumbnail, timestamp)
                                                             const translated = {

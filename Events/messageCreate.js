@@ -18,7 +18,7 @@ client.on("messageCreate", async message => {
 
     if (!command) return;
     
-    if (message.channel.isDMBased() && !command.dm) return
+    if (message.channel.isDMBased() && !command.dm) return;
 
     const client_user = await message.guild?.members.fetchMe()
     if (!message.channel.isDMBased() && !message.member.permissions.has(command.userPermissions || [])) return message.reply("You do not have permission to use this command!");

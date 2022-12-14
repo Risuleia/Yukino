@@ -23,6 +23,4 @@ client.on("ready", async () => {
 		client.servers.set(guild.id, obj)
 	})
 
-	check()
-	
 });

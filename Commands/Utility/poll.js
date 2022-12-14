@@ -1,6 +1,7 @@
 const { numbers } = require("../../Utilities/emotes.js");
 const colors = require("../../Utilities/colors.json");
 const Regex = require("../../Models/regex.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: 'poll',
@@ -42,11 +43,10 @@ module.exports = {
 		const color = colors[Math.floor(Math.random() * colors.length)]
 		
 		// embed setting
-		let emb = {
-			color: color,
-			title: title,
-			description: choiceMap.join('\n')
-		}
+		let emb = new EmbedBuilder()
+			.setColor(color)
+			.setTitle(title)
+			.setDescription(choiceMap.join('\n'))
 
 		// reactions
 		let reactions = num
