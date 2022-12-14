@@ -22,7 +22,7 @@ const addmail = async (message, user) => {
     const yes_emoji = '1020432707441926304'
     const no_emoji = '944692244630347827'
 
-    if (!modmail) return
+    if (!modmail_id || !modmail) return
 
     if (keys.length > 0 && keys?.some(key => key === id)) {
         message.react(no_emoji)
@@ -85,7 +85,7 @@ const closemail = async (message, id) => {
     const modmail_id = await db.get('serverconf').modmail
     const modmail = mariposa.channels.cache.find(c => c.id === modmail_id)
 
-    if (!modmail) return
+    if (!modmail_id || !modmail) return
 
     const keys = mails ? Object.keys(mails) : []
 
