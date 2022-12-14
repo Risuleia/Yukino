@@ -4,11 +4,12 @@ module.exports = {
   description: 'Mutes a specified user.',
   userPermissions: ['MODERATE_MEMBERS'],
   botPermissions: ['MANAGE_ROLES'],
+  dm: false,
   execute: async (client, message, args, db) => {
     
     if (args.length == 0) return message.reply("You need to specify someone to mute.")
 
-    const muteRole = await db.get(`muterole_${message.guild.id}`);
+    const muteRole = await db.get('serverconf').muterole;
     
     if (!muteRole) return message.reply("You need to set a mute-role to be able to do that. Run `d.help muterole` to learn how to create/set one!")
 

@@ -1,6 +1,7 @@
 const db = require('../../db')
 const { edit } = require("../embed")
 const translate_emotes = require('../../Models/emote-translator')
+const Regex = require('../../Models/regex')
 
 const embedit = async (message, args) => {
 
@@ -18,8 +19,8 @@ const embedit = async (message, args) => {
     ]
 
     // regex
-    const hex = /^\#?[a-fA-F0-9]{6}$/g
-    const img = /^https:\/{2}.+\/.+\.(png|jpg|jpeg|webp|gif)(\/|(\?\S*))?$/g
+    const hex = Regex.hex
+    const img = Regex.img
 
     // filters
     const color_filter = m => {

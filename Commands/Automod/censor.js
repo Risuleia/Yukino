@@ -47,7 +47,7 @@ module.exports = {
           description: (word_list || word_list.length || word_list.length > 0) ? word_list : 'No censored words in this server.\n',
           footer: {
             text: client.user.tag,
-            icon_url: client.user.displayAvatarURL()
+            icon_url: client.user.displayAvatarURL({ dynamic: true })
           }
         }
 

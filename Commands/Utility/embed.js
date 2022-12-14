@@ -9,6 +9,7 @@ module.exports = {
 	description: "Stores, removes, edits, shows or sends an embed.",
 	usage: "<add/edit/remove/send/show/list> <embed name (if used with `send`, `show`, `remove` or `edit` subcmd) <channel mention (if used with `send` subcmd)|property to edit (if used with `edit` subcmd)>",
 	userPermissions: ['ADMINISTRATOR'],
+	dm: false,
 	execute: async (client, message, args, db) => {
 
 		const allowedParams = ['add', 'create', '+', 'remove', 'delete', '-', 'edit', '+=', 'send', 'show', 'list']

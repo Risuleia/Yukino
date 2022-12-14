@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const db = require('../db')
 const check = require('./check')
 
@@ -14,7 +14,7 @@ const create = async (channel, emb, author = null, content = false) => {
 	let thumbnail = emb.thumbnail
 	let timestamp = emb.timestamp
 
-	const embed = new MessageEmbed()
+	const embed = new EmbedBuilder()
 			.setColor(color)
 			.setTitle(title)
 			.setDescription(description)

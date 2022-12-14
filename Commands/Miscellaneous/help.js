@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { readdirSync } = require("fs");
 const prefix = require("../../config.json").prefix;
 
@@ -6,13 +6,16 @@ module.exports = {
   name: "help",
   aliases : ['h'],
   description: "Shows all available bot commands.",
+  dm: true,
   execute: async (client, message, args, db) => {
 
-
+    const client_user = await message.guild?.members?.fetchMe()
     const roleColor =
-      message.guild.me.displayHexColor === "#000000"
-        ? "#ffffff"
-        : message.guild.me.displayHexColor;
+        !message.guild
+        ? 0xffffff
+        : client_user?.displayHexColor === "#000000"
+        ? 0xffffff
+        : client_user?.displayColor;
 
     if (!args[0]) {
       let categories = [];
@@ -63,7 +66,7 @@ module.exports = {
         );
 
       if (!command) {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
           .setColor("FF0000");
         return message.channel.send(embed);

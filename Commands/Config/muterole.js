@@ -1,11 +1,12 @@
-// module.exports = {
-//   name: 'muterole',
-//   aliases: [],
-//   description: 'Created a mute-role or sets one if specified.',
-//   userPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS'],
-//   botPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS'],
-//   execute: async (client, message, args, db) => {
+module.exports = {
+  name: 'muterole',
+  aliases: [],
+  description: 'Created a mute-role or sets one if specified.',
+  userPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS'],
+  botPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS'],
+  execute: async (client, message, args, db) => {
 
+    message.reply("This command has been deprecated.")
 //     const muteRole = await db.get('serverconf').muterole;
 
 // 		const subcmd = ['create', 'add', 'set', 'show', 'reset', 'delete']
@@ -115,5 +116,5 @@
 // 			reply: { messageReference: message.id }
 // 		})
 		
-//   }
-// }
+  }
+}

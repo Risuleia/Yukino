@@ -2,6 +2,7 @@ const translate = require("../../Models/translator")
 const translate_emotes = require("../../Models/emote-translator")
 const construct = require("../emb")
 const { create, add } = require("../embed")
+const Regex = require("../../Models/regex")
 
 const embcreate = async (message) => {
     const chan = message.channel
@@ -17,9 +18,9 @@ const embcreate = async (message) => {
     }
     
     // regex
-    const hex = /^\#?[a-fA-F0-9]{6}$/g
+    const hex = Regex.hex
     const space = /\s+/g
-    const img = /^https:\/{2}.+\/.+\.(png|jpg|jpeg|webp|gif)(\/|(\?\S*))?$/g
+    const img = Regex.img
 
     // empty variables
     let color
@@ -118,7 +119,7 @@ const embcreate = async (message) => {
                                                                 description: translate(message.author, message.guild, chan, description),
                                                                 image: emb.image ? translate(message.author, message.guild, chan, image) : emb.image,
                                                                 thumbnail: emb.thumbnail ? translate(message.author, message.guild, chan, thumbnail) : emb.thumbnail,
-                                                                timestamp: emb.timestamp ? translate(message.author, message.guild, chan, timestamp) : emb.timestamp
+                                                                timestamp: emb.timestamp
                                                             }
                                                             add(message, emb, name)
                                                             create(chan, translated)

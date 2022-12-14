@@ -33,7 +33,7 @@ const embsend = async (message, args) => {
         thumbnail: emb.thumbnail ? translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
         timestamp: emb.timestamp ? translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
     }
-    // console.log(translated)
+    
     await create(chan, translated)
 
 }

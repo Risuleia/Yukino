@@ -4,11 +4,12 @@ module.exports = {
   description: 'Unmutes a specified user.',
   userPermissions: ['MANAGE_ROLES'],
   botPermissions: ['MANAGE_ROLES'],
+  dm: false,
   execute: async (client, message, args, db) => {
     
     if (args.length == 0) return message.reply("You need to specify someone to unmute.")
 
-    const muteRole = await db.get('muterole');
+    const muteRole = await db.get('serverconf').muterole;
     
     if (!muteRole) return message.reply(`You need to set a mute-role to be able to do that. Run \`${client.config.prefix}help muterole\` to learn how to create/set one!`)
 

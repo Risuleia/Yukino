@@ -1,12 +1,44 @@
 // Dependencies
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, IntentsBitField, Partials } = require("discord.js");
 const { DisTube } = require("distube");
 const { SpotifyPlugin } = require("@distube/spotify");
 const fs = require('fs');
 
 // Creating the client
+const intents = [
+	"Guilds",
+	"GuildMembers",
+	"GuildBans",
+	"GuildEmojisAndStickers",
+	"GuildIntegrations",
+	"GuildWebhooks",
+	"GuildInvites",
+	"GuildVoiceStates",
+	"GuildPresences",
+	"GuildMessages",
+	"GuildMessageReactions",
+	"GuildMessageTyping",
+	"DirectMessages",
+	"DirectMessageReactions",
+	"DirectMessageTyping",
+	"MessageContent",
+	"GuildScheduledEvents",
+	"AutoModerationConfiguration",
+	"AutoModerationExecution"
+]
+const partials = [
+	Partials.Channel,
+	Partials.GuildMember,
+	Partials.GuildScheduledEvent,
+	Partials.Message,
+	Partials.Reaction,
+	Partials.ThreadMember,
+	Partials.User
+]
 const client = new Client({
-	intents: 32767,
+	intents: new IntentsBitField(intents),
+	partials: partials,
+	failIfNotExists: false,
 });
 module.exports = client;
 

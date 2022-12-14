@@ -1,3 +1,5 @@
+const Regex = require("../../Models/regex")
+
 module.exports = {
     name: "setchannel",
     aliases: ['setchan', 'setc'],
@@ -7,7 +9,7 @@ module.exports = {
         
         const chan = message.channel
 
-        const param = ['announcements', 'welcome', 'boost', 'polls']
+        const param = ['announcements', 'welcome', 'boost', 'polls', 'modmail']
 
         if (!args.length || args.length < 1) return chan.send({
             content: "specify a parameter",
@@ -25,8 +27,8 @@ module.exports = {
             content: "provide something to set",
             reply: { messageReference: message.id }
         })
-
-        const regex = /^\d{18}$|^<#\d{18}>$|^remove$/g
+        
+        const regex = Regex.channel_specific
         const replacement = /<|#|>/g
         const match = setting.match(regex)
         if (!match) return chan.send({
@@ -45,7 +47,8 @@ module.exports = {
             announcements: "Announcements",
             welcome: "Welcome",
             boost: "Boost",
-            polls: "Polls"
+            polls: "Polls",
+            modmail: "Modmail"
         }
 
         chan.send({

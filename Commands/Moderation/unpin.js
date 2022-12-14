@@ -4,6 +4,7 @@ module.exports = {
   description: "Unpins the message the command is run in reply to.",
   userPermissions: ['MANAGE_MESSAGES'],
   botPermissions: ['MANAGE_MESSAGES'],
+  dm: false,
   execute: async (client, message, args, db) => {
 
     if (message.reference === null) {

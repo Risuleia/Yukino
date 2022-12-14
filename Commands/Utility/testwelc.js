@@ -5,6 +5,7 @@ module.exports = {
 	aliases: [],
 	description: "Tests the welcome message.",
 	userPermissions: ['ADMINISTRATOR'],
+	dm: false,
 	execute: async (client, message, args, db) => {
 
 		const conf = await db.get('serverconf')

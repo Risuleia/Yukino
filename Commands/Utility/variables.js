@@ -1,9 +1,10 @@
 const placeholders = require("../../Models/placeholders")
 
 module.exports = {
-    name: "placeholders",
-    aliases: [],
+    name: "variables",
+    aliases: ['vars'],
     description: "Shows all the available placeholders.",
+    dm: false,
     execute: async (client, message, args, db) => {
         
         const ph = Object.keys(placeholders)
