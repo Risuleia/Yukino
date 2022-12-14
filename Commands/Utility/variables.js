@@ -1,13 +1,14 @@
 const placeholders = require("../../Models/placeholders")
 
 module.exports = {
-    name: "placeholders",
-    aliases: [],
+    name: "variables",
+    aliases: ['vars'],
     description: "Shows all the available placeholders.",
+    dm: false,
     execute: async (client, message, args, db) => {
         
         const ph = Object.keys(placeholders)
-        const desc = ph.map(a => `  \`{${a}}\``)
+        const desc = ph.map(a => `\`{${a}}\``)
 
         const type_user = desc.filter(a => a.includes('user'))
         const type_server = desc.filter(a => a.includes('server'))
@@ -19,23 +20,23 @@ module.exports = {
             title: "Yukino's Placeholders",
             fields: [
                 {
-                    name: "─  ‚User‛﹒",
+                    name: "─  User‛﹒",
                     value: type_user.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  ‚Server‛﹒",
-                    value: `  ${type_server.join('\n')}`,
+                    name: "─  Server‛﹒",
+                    value: type_server.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  ‚Boost‛﹒",
-                    value: `  ${type_boost.join('\n')}`,
+                    name: "─  Boost‛﹒",
+                    value: type_boost.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  ‚Channel‛﹒",
-                    value: `  ${type_channel.join('\n')}`,
+                    name: "─  Channel‛﹒",
+                    value: type_channel.join('\n'),
                     inline: true
                 }
             ]

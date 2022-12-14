@@ -1,11 +1,14 @@
 const { numbers } = require("../../Utilities/emotes.js");
-const colors = require("../../Utilities/colors.json")
+const colors = require("../../Utilities/colors.json");
+const Regex = require("../../Models/regex.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: 'poll',
 	aliases: [],
 	description: "Creates a quick poll with up to 9 choices.",
 	usage: `<title> | <choice 1>; <choice 2>...`,
+	dm: false,
 	execute: async (client, message, args, db) => {
 
 		const polls = await db.get('serverconf').polls
@@ -16,7 +19,7 @@ module.exports = {
 		// regex
 		const wspace1 = /^ +| +$/g;
 		const wspace2 = / +/g;
-		const idRe = /\d{18}/g;
+		const idRe = Regex.id;
 									
 		// whole arg
 		const arg = args.join(` `);
@@ -40,11 +43,10 @@ module.exports = {
 		const color = colors[Math.floor(Math.random() * colors.length)]
 		
 		// embed setting
-		let emb = {
-			color: color,
-			title: title,
-			description: choiceMap.join('\n')
-		}
+		let emb = new EmbedBuilder()
+			.setColor(color)
+			.setTitle(title)
+			.setDescription(choiceMap.join('\n'))
 
 		// reactions
 		let reactions = num

@@ -26,14 +26,14 @@ const embsend = async (message, args) => {
     const emb = embeds.find(emb => emb.name === arg)?.embed
 
     const translated = {
-        color: await translate(message.author, message.guild, chan, emb.color),
-        title: await translate(message.author, message.guild, chan, emb.title),
-        description: await translate(message.author, message.guild, chan, emb.description),
-        image: emb.image ? await translate(message.author, message.guild, chan, emb.image) : emb.image,
-        thumbnail: emb.thumbnail ? await translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
-        timestamp: emb.timestamp ? await translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
+        color: translate(message.author, message.guild, chan, emb.color),
+        title: translate(message.author, message.guild, chan, emb.title),
+        description: translate(message.author, message.guild, chan, emb.description),
+        image: emb.image ? translate(message.author, message.guild, chan, emb.image) : emb.image,
+        thumbnail: emb.thumbnail ? translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
+        timestamp: emb.timestamp ? translate(message.author, message.guild, chan, emb.timestamp) : emb.timestamp
     }
-    // console.log(translated)
+    
     await create(chan, translated)
 
 }

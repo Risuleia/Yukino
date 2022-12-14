@@ -1,5 +1,7 @@
 const db = require('../../db')
 const { edit } = require("../embed")
+const translate_emotes = require('../../Models/emote-translator')
+const Regex = require('../../Models/regex')
 
 const embedit = async (message, args) => {
 
@@ -7,22 +9,22 @@ const embedit = async (message, args) => {
 
     // states
     const states = [
-        "What should the color of your embed be changed to?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- \"Default\" (Goes with the default color of white.)\n- \"Cancel\" (Cancelles the operation)",
+        "What should the color of your embed be changed to?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- A variable like \`{user_displaycolor}\`\n- \"Default\" (Goes with the default color of white.)\n- \"Cancel\" (Cancelles the operation)",
         "What will your embed be about? Send the new title! (cannot be removed)",
         "Next, tell me what your embed will say. Send the new description. (cannot be removed)",
-        "What changes do you want to make to the image of your embed?\n__Allowed Values:__\n- A valid image URL\n- \"Remove\" (Removes the current image)\n- \"Cancel\" (Cancelles the operation)",
-        "What changes do you want to make to the thumbnail of your embed?\n__Allowed Values:__\n- A valid image URL\n- \"Remove\" (Removes the current thumbnail)\n- \"Cancel\" (Cancelles the operation)",
+        "What changes do you want to make to the image of your embed?\n__Allowed Values:__\n- A valid image URL\n- Variables like \`{user_avatar}\` or \`{server_icon}\`\n- \"Remove\" (Removes the current image)\n- \"Cancel\" (Cancelles the operation)",
+        "What changes do you want to make to the thumbnail of your embed?\n__Allowed Values:__\n- A valid image URL\n- Variables like \`{user_avatar}\` or \`{server_icon}\`\n- \"Remove\" (Removes the current thumbnail)\n- \"Cancel\" (Cancelles the operation)",
         "Should your embed have a timestamp?\n__Allowed Values:__\n- \"Yes\" (Adds the timestamp)\n- \"No\" (Remove the timestamp)\n- \"Cancel\" (Cancelles the operation)",
         "Are you happy with your changes? \"Yes\" if your are, and \"No\" if you aren't."
     ]
 
     // regex
-    const hex = /^\#?[a-fA-F0-9]{6}$/g
-    const img = /^https:\/{2}.+\/.+\.(png|jpg|jpeg|webp|gif)(\/|(\?\S*))?$/g
+    const hex = Regex.hex
+    const img = Regex.img
 
     // filters
     const color_filter = m => {
-        return ((hex.test(m.content) || ["default", "random", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id && m.content !== emb.embed.color)
+        return ((hex.test(m.content) || ["{user_displaycolor}", "default", "random", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id && m.content !== emb.embed.color)
     }
     const title_filter = m => {
         return (m.content.split("").length <= 256 && m.author.id === message.author.id && m.content !== emb.embed.color)
@@ -31,10 +33,10 @@ const embedit = async (message, args) => {
         return (m.content.split("").length <= 4096 && m.author.id === message.author.id)
     }
     const image_filter = m => {
-        return ((img.test(m.content) || ["remove", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["{user_avatar}", "{server_icon}", "remove", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const thumbnail_filter = m => {
-        return ((img.test(m.content) || ["remove", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["{user_avatar}", "{server_icon}", "remove", "cancel"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const timestamp_filter = m => {
         return ((['cancel', 'yes', 'no', 'true', 'false'].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
@@ -126,7 +128,7 @@ const embedit = async (message, args) => {
                 stateMsg.edit(states[6])
             }
             if (id === 1 || id === 2) {
-                val = resp
+                val = translate_emotes(resp, message.guild)
                 msg.delete()
                 embMsg.edit({
                     embeds: [{

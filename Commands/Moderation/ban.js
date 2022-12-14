@@ -4,6 +4,7 @@ module.exports = {
   description: 'Bans a specified user from the guild.',
   userPermissions: ['BAN_MEMBERS'],
   botPermissions: ['BAN_MEMBERS'],
+  dm: false,
   execute: async (client, message, args, db) => {
     
     if (args.length == 0) return message.reply("You need to specify someone to ban.")

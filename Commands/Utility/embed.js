@@ -1,5 +1,4 @@
-const { create, remove, edit } = require("../../Utilities/embed")
-const Database = require('@replit/database')
+const { remove } = require("../../Utilities/embed")
 const embcreate = require("../../Utilities/embed-utils/emb-create")
 const embsend = require("../../Utilities/embed-utils/emb-send")
 const embedit = require("../../Utilities/embed-utils/emb-edit")
@@ -10,6 +9,7 @@ module.exports = {
 	description: "Stores, removes, edits, shows or sends an embed.",
 	usage: "<add/edit/remove/send/show/list> <embed name (if used with `send`, `show`, `remove` or `edit` subcmd) <channel mention (if used with `send` subcmd)|property to edit (if used with `edit` subcmd)>",
 	userPermissions: ['ADMINISTRATOR'],
+	dm: false,
 	execute: async (client, message, args, db) => {
 
 		const allowedParams = ['add', 'create', '+', 'remove', 'delete', '-', 'edit', '+=', 'send', 'show', 'list']

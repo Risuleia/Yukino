@@ -1,7 +1,10 @@
+const Regex = require("../../Models/regex")
+
 module.exports = {
     name: "setrole",
     aliases: ['setrol', 'setr'],
     description: "Sets a specific role for the server configuration.",
+		userPermissions: ['ADMINISTRATOR'],
     execute: async (client, message, args, db) => {
         
         const chan = message.channel
@@ -25,7 +28,7 @@ module.exports = {
             reply: { messageReference: message.id }
         })
 
-        const regex = /^\d{18}$|^<@&\d{18}>$|^remove$/g
+        const regex = Regex.role_specific
         const replacement = /<|@|&|>/g
         const match = setting.match(regex)
         if (!match) return chan.send({

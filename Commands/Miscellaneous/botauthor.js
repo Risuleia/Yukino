@@ -2,6 +2,7 @@ module.exports = {
   name: 'botauthor',
   aliases: ['botowner', 'author'],
   description: "Displays the creator of the bot and other credits.",
+  dm: true,
   execute: async (client, message, args, db) => {
 
     const risu = await client.users.fetch("693623099710505041")
