@@ -29,7 +29,7 @@ client.on('messageCreate', async message => {
                 .setColor(0xacbdef)
                 .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription((!message.content || message.content == '') ? '_No Text_' : message.content)
-                .setImage(message.attachments?.first()?.proxyURL() || null)
+                .setImage(message.attachments?.first()?.proxyURL || null)
                 .setFooter({ text: message.author.id })
                 .setTimestamp(Date.now())
             ]
