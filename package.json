@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
 	"engines": {
-		"node": "16"
+		"node": "=16"
 	},
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
