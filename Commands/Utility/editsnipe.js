@@ -8,7 +8,7 @@ module.exports = {
 	dm: false,
   execute: async (client, message, args, db) => {
 
-    const esnipes = client.edit_snipes.get(message.channel.id);
+    const esnipes = client.esnipes.get(message.channel.id);
 
     if (!esnipes) return message.reply('There are no edited messages in this channel!');
 
@@ -22,10 +22,10 @@ module.exports = {
 		const emb = new EmbedBuilder()
 					.setColor(0xb9d3ee)
 					.setAuthor({ name: newmsg.author.tag, iconURL: newmsg.author.displayAvatarURL({ dynamic: true }) })
-					.setFields([
+					.addFields(
 						{ name: 'Message edited' || '\u200b', value: trim(newmsg.content) || '\u200b' },
 						{ name: 'Original:' || '\u200b', value: trim(oldmsg.content) || '\u200b' }
-					])
+					)
 					.setImage(image)
 					.setFooter({ text: `${moment(time).fromNow()}  •  ${esnipe + 1}/${esnipes.length}` })
 

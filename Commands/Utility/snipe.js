@@ -22,9 +22,9 @@ module.exports = {
 		const emb = new EmbedBuilder()
 					.setColor(0xb9d3ee)
 					.setAuthor({ name: msg.author.tag, iconURL: msg.author.displayAvatarURL({ dynamic: true }) })
-					.setFields([
+					.addFields(
 						{ name: 'Message deleted' || '\u200b', value: trim(msg.content) || '\u200b' }
-					])
+					)
 					.setImage(image)
 					.setFooter({ text: `${moment(time).fromNow()}  •  ${snipe + 1}/${snipes.length}` })
 
