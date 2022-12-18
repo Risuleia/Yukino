@@ -23,9 +23,4 @@ client.on('messageReactionAdd', async (reaction, user) => {
     });
 
     client.react_snipes.set(reaction.message.channel.id, react_snipes)
-
-	// // Now the message has been cached and is fully available
-	// console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
-	// // The reaction is now also fully available and the properties will be reflected accurately:
-	// console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
 });
