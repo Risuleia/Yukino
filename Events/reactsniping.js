@@ -13,19 +13,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 
-  let react_snipes = client.react_snipes.get(reaction.message.channel.id) || [];
+  let rsnipes = client.rsnipes.get(reaction.message.channel.id) || [];
 
-    react_snipes.unshift({
+    rsnipes.unshift({
       msg: reaction.message,
       reaction: reaction.emoji,
       user: user,
       time: Date.now()
     });
 
-    client.react_snipes.set(reaction.message.channel.id, react_snipes)
-
-	// // Now the message has been cached and is fully available
-	// console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
-	// // The reaction is now also fully available and the properties will be reflected accurately:
-	// console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
+    client.rsnipes.set(reaction.message.channel.id, rsnipes)
 });
