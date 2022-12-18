@@ -16,7 +16,8 @@ client.on('messageCreate', async message => {
     if (!modmail_id || !modmail) return
 
     const id = message.author.id
-    if (Object.keys(mails).some(key => key !== id)) return
+	console.log(id, Object.keys(mails))
+    if (!(Object.keys(mails).some(key => key === id))) return
 
     const thread_id = mails[id]?.thread
     const thread = mariposa.channels.cache.find(c => c.id === thread_id)
