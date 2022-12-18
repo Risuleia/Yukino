@@ -1,3 +1,5 @@
+const { ActivityType } = require("discord-api-types/v10")
+
 const status = (client) => {
 	
 	const states = [
@@ -9,7 +11,7 @@ const status = (client) => {
 	]
 
 	const rand = Math.floor(Math.random() * states.length)
-	const type = rand == 4 ? 'WATCHING' : 'PLAYING'
+	const type = rand == 4 ? ActivityType.Watching : ActivityType.Playing
 	
 	client.user.setActivity(states[rand], { type: type })
 	
