@@ -12,6 +12,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return;
 		}
 	}
+	
+	if (reaction.message.channel.isDMBased()) return
 
   let rsnipes = client.rsnipes.get(reaction.message.channel.id) || [];
 

@@ -1,6 +1,7 @@
 const client = require('../index');
 
 client.on('messageDelete', message => {
+	if (message.channel.isDMBased()) return
 	if (message.author.bot) return;
 
 	let snipes = client.snipes.get(message.channel.id) || [];

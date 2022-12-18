@@ -1,7 +1,7 @@
 const client = require('../index');
 
   client.on('messageUpdate', (oldMessage, newMessage) => {
-    console.log(newMessage.content, oldMessage.content)
+	if (oldMessage.channel.isDMBased()) return
     
     if (newMessage.author.bot) return;
 
