@@ -13,14 +13,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 
-  let react_snipes = client.react_snipes.get(reaction.message.channel.id) || [];
+  let rsnipes = client.rsnipes.get(reaction.message.channel.id) || [];
 
-    react_snipes.unshift({
+    rsnipes.unshift({
       msg: reaction.message,
       reaction: reaction.emoji,
       user: user,
       time: Date.now()
     });
 
-    client.react_snipes.set(reaction.message.channel.id, react_snipes)
+    client.rsnipes.set(reaction.message.channel.id, rsnipes)
 });

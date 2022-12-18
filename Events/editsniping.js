@@ -1,19 +1,20 @@
 const client = require('../index');
 
   client.on('messageUpdate', (oldMessage, newMessage) => {
+    console.log(newMessage.content, oldMessage.content)
     
-    if (message.author.bot) return;
+    if (newMessage.author.bot) return;
 
-    if (message.embeds) return;
+    if (newMessage.embeds) return;
     
-    let esnipes = client.edit_snipes.get(message.channel.id) || [];
+    let esnipes = client.esnipes.get(newMessage.channel.id) || [];
 
     esnipes.unshift({
       newmsg: newMessage,
 			oldmsg: oldMessage,
-      image: message.attachments.first()?.proxyURL || null,
+      image: newMessage.attachments.first()?.proxyURL || null,
       time: Date.now()
     });
 
-    client.edit_snipes.set(message.channel.id, esnipes)
+    client.enipes.set(message.channel.id, esnipes)
   })
