@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require('discord.js')
+const trim = require('../../Models/trim')
 const moment = require('moment');
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
   execute: async (client, message, args, db) => {
 
     const esnipes = client.esnipes.get(message.channel.id);
+		console.log(client.esnipes)
 
     if (!esnipes) return message.reply('There are no edited messages in this channel!');
 
@@ -23,13 +25,13 @@ module.exports = {
 					.setColor(0xb9d3ee)
 					.setAuthor({ name: newmsg.author.tag, iconURL: newmsg.author.displayAvatarURL({ dynamic: true }) })
 					.addFields(
-						{ name: 'Message edited' || '\u200b', value: trim(newmsg.content) || '\u200b' },
-						{ name: 'Original:' || '\u200b', value: trim(oldmsg.content) || '\u200b' }
+						{ name: 'Message edited' || '\u200b', value: trim(newmsg.content, 1024) || '\u200b' },
+						{ name: 'Original:' || '\u200b', value: trim(oldmsg.content, 1024) || '\u200b' }
 					)
 					.setImage(image)
 					.setFooter({ text: `${moment(time).fromNow()}  •  ${esnipe + 1}/${esnipes.length}` })
 
-    message.reply({ embeds: [embed], allowedMentions: { repliedUser: false } })
+    message.reply({ embeds: [emb], allowedMentions: { repliedUser: false } })
 
   }
 }
