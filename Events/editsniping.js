@@ -1,13 +1,17 @@
 const client = require('../index');
 
   client.on('messageUpdate', (oldMessage, newMessage) => {
-	if (oldMessage.channel.isDMBased()) return
-    
-    if (newMessage.author.bot) return;
 
-    if (newMessage.embeds) return;
+		oldMessage.fetch()
+		newMessage.fetch()
+		
+		if (oldMessage.channel.isDMBased()) return console.log('a');
     
-    let esnipes = client.esnipes.get(newMessage.channel.id) || [];
+    if (newMessage.author.bot) return console.log('b');
+
+    if (newMessage.embeds.length > 0) return console.log('c');
+    
+    let esnipes = client.esnipes.get(newMessage.channelId) || [];
 
     esnipes.unshift({
       newmsg: newMessage,
@@ -16,5 +20,5 @@ const client = require('../index');
       time: Date.now()
     });
 
-    client.enipes.set(message.channel.id, esnipes)
+    client.esnipes.set(newMessage.channelId, esnipes)
   })
