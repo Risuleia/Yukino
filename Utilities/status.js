@@ -2,18 +2,41 @@ const { ActivityType } = require("discord-api-types/v10")
 
 const status = (client) => {
 	
-	const states = [
-		'with mimi',
-		'with risu',
-		'i love mimi <333',
-		'i love risu <333',
-		'mimi\'s server'
-	]
+	const states = {
+		0: {
+			content: 'with mimi',
+			type: ActivityType.Playing
+		},
+		1: {
+			content: 'with risu',
+			type: ActivityType.Playing
+		},
+		2: {
+			content: 'i love mimi <333',
+			type: ActivityType.Playing
+		},
+		3: {
+			content: 'i love risu <333',
+			type: ActivityType.Playing
+		},
+		4: {
+			content: 'mimi\'s server',
+			type: ActivityType.Watching
+		},
+		5: {
+			content: 'mariposa',
+			type: ActivityType.Competing
+		},
+		6: {
+			content: 'Cosplaying in mariposa',
+			type: ActivityType.Custom
+		}
+	}
 
-	const rand = Math.floor(Math.random() * states.length)
-	const type = rand == 4 ? ActivityType.Watching : ActivityType.Playing
+	const length = Object.keys(states).length
+	const rand = Math.floor(Math.random() * length)
 	
-	client.user.setActivity(states[rand], { type: type })
+	client.user.setActivity(states[rand].content, { type: states[rand].type })
 	
 }
 

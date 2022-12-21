@@ -71,7 +71,7 @@ client.servers = new Collection();
 require("./Handlers")(client);
 
 // Starting up the web server
-alive(client)
+// alive(client)
 
 // Logging in
 const token = process.env.TOKEN;
