@@ -1,15 +1,15 @@
 const client = require('../index');
 
-  client.on('messageUpdate', (oldMessage, newMessage) => {
+  client.on('messageUpdate', async (oldMessage, newMessage) => {
 
-		oldMessage.fetch()
-		newMessage.fetch()
+		await oldMessage.fetch()
+		await newMessage.fetch()
 		
-		if (oldMessage.channel.isDMBased()) return console.log('a');
+		if (oldMessage.channel.isDMBased()) return;
     
-    if (newMessage.author.bot) return console.log('b');
+    if (newMessage.author.bot) return;
 
-    if (newMessage.embeds.length > 0) return console.log('c');
+    if (newMessage.embeds.length > 0) return;
     
     let esnipes = client.esnipes.get(newMessage.channelId) || [];
 

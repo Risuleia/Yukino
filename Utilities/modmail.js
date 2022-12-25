@@ -89,7 +89,7 @@ const closemail = async (message, id) => {
 
     const keys = mails ? Object.keys(mails) : []
 
-    if (keys?.some(key => key !== id)) return message.reply({
+    if (!(keys?.some(key => key === id))) return message.reply({
         embeds: [
             new EmbedBuilder()
                 .setColor('#e6d0ce')
