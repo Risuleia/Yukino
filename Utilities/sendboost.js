@@ -16,14 +16,14 @@ const sendboost = async (author, chan) => {
 	if (!emb) return
 	let translated = {
 		color: translate(author, author.guild, chan, emb.embed.color),
-		title: translate(author, author.guild, chan, emb.embed.title),
+		title: emb.embed.title ? translate(author, author.guild, chan, emb.embed.title) : emb.embed.title,
 		description: translate(author, author.guild, chan, emb.embed.description),
 		image: emb.embed.image ? translate(author, author.guild, chan, emb.embed.image) : emb.embed.image,
 		thumbnail: emb.embed.thumbnail ? translate(author, author.guild, chan, emb.embed.thumbnail) : emb.embed.thumbnail,
 		timestamp: emb.embed.timestamp
 	}
 
-	create(chan, translated, author, true)
+	create(chan, translated, author, 'boost')
 	
 }
 

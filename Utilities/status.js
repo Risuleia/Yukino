@@ -39,9 +39,8 @@ const status = (client) => {
 
 	const length = Object.keys(states).length
 	const rand = Math.floor(Math.random() * length)
-	
-	client.user.setActivity(states[rand].content, { type: states[rand].type })
-	client.user.setStatus(rand == 6 ? 'streaming' : 'idle')
+
+	client.user.setActivity(states[rand].content, { type: states[rand].type, url: 'https://www.youtube.com/watch?v=VxgqVE4vv28' })
 	
 }
 

@@ -27,7 +27,7 @@ const embsend = async (message, args) => {
 
     const translated = {
         color: translate(message.author, message.guild, chan, emb.color),
-        title: translate(message.author, message.guild, chan, emb.title),
+        title: emb.title ? translate(message.author, message.guild, chan, emb.title) : emb.title,
         description: translate(message.author, message.guild, chan, emb.description),
         image: emb.image ? translate(message.author, message.guild, chan, emb.image) : emb.image,
         thumbnail: emb.thumbnail ? translate(message.author, message.guild, chan, emb.thumbnail) : emb.thumbnail,
