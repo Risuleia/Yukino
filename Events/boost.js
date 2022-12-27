@@ -2,27 +2,20 @@ const db = require('../db')
 const client = require('../index')
 const sendboost = require('../Utilities/sendboost')
 
-client.on('guildMemberUpdate', async (oldMember, newMember) => {
+client.on('messageCreate', async message => {
 
-	if (oldMember.bot) return
-
-	const conf = await db.get('serverconf')
-	const chan_id = conf.boost
-
-	if (!chan_id) return
-	
-	const boost_chan = oldMember.guild.channels.cache.find(c => c.id === chan_id)
+	const id = await db.get('serverconf').boost
+	if (!id) return
+	const boost_chan = message.guild.channels.cache.find(c => c.id == id)
 	if (!boost_chan) return
 
-    // const boostrole = oldMember.guild.roles.premiumSubscriberRole || null
-    // if (!boostrole) return
-
-    if (!newMember.roles.premiumSubscriberRole) return
+	if (!message.system) return
+	if (!(8 <= message.type <= 11)) return
 
 	try {
-		sendboost(newMember, boost_chan)
+		sendboost(message.author, boost_chan)
 	} catch (err) {
-		throw err
+		return
 	}
 	
 })

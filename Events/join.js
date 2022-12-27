@@ -17,7 +17,7 @@ client.on('guildMemberAdd', async member => {
 	try {
 		sendwelc(member, welc_chan)
 	} catch (err) {
-		throw err
+		return
 	}
 	
 })
