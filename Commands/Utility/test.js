@@ -1,5 +1,4 @@
-const { MessageMentions } = require('discord.js')
-const translate_emotes = require('../../Models/emote-translator')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
 	name: "test",
@@ -7,7 +6,13 @@ module.exports = {
 	description: "Test",
 	execute: async (client, message, args, db) => {
 
-		console.log(MessageMentions.ChannelsPattern, MessageMentions.EveryonePattern, MessageMentions.RolesPattern, MessageMentions.UsersPattern)
+		message.channel.send({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle(null)
+					.setDescription('okay')
+			]
+		})
 		
 	}
 }

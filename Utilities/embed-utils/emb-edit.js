@@ -2,6 +2,7 @@ const db = require('../../db')
 const { edit } = require("../embed")
 const translate_emotes = require('../../Models/emote-translator')
 const Regex = require('../../Models/regex')
+const { EmbedBuilder } = require('discord.js')
 
 const embedit = async (message, args) => {
 
@@ -10,7 +11,7 @@ const embedit = async (message, args) => {
     // states
     const states = [
         "What should the color of your embed be changed to?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- A variable like \`{user_displaycolor}\`\n- \"Default\" (Goes with the default color of white.)\n- \"Cancel\" (Cancelles the operation)",
-        "What will your embed be about? Send the new title! (cannot be removed)",
+        "What will your embed be about? Send the new title! (\"Remove\" to remove the current title)",
         "Next, tell me what your embed will say. Send the new description. (cannot be removed)",
         "What changes do you want to make to the image of your embed?\n__Allowed Values:__\n- A valid image URL\n- Variables like \`{user_avatar}\` or \`{server_icon}\`\n- \"Remove\" (Removes the current image)\n- \"Cancel\" (Cancelles the operation)",
         "What changes do you want to make to the thumbnail of your embed?\n__Allowed Values:__\n- A valid image URL\n- Variables like \`{user_avatar}\` or \`{server_icon}\`\n- \"Remove\" (Removes the current thumbnail)\n- \"Cancel\" (Cancelles the operation)",
@@ -87,14 +88,15 @@ const embedit = async (message, args) => {
     let val
 
     message.channel.send({
-        embeds: [{
-            color: emb.embed.color,
-            title: emb.embed.title,
-            description: emb.embed.description,
-            image: { url: emb.embed.image },
-            thumbnail: { url: emb.embed.thumbnail },
-            timestamp: emb.embed.timestamp ? Date.now() : null
-        }]
+        embeds: [
+					new EmbedBuilder()
+            .setColor(emb.embed.color)
+            .setTitle(emb.embed.title)
+            .setDescription(emb.embed.description)
+            .setImage(emb.embed.image)
+            .setThumbnail(emb.embed.thumbnail)
+            .setTimestamp(emb.embed.timestamp ? Date.now() : null)
+        ]
     }).then(m => embMsg = m)
     message.channel.send(state).then(m => stateMsg = m)
 
@@ -104,10 +106,11 @@ const embedit = async (message, args) => {
             let resp = msg.first().content
 
             if (resp?.toLowerCase() === "cancel") return chan.send({
-                embeds: [{
-                    color: 0xe6d0ce,
-                    description: "operation cancelled"
-                }]
+                embeds: [
+									new EmbedBuilder()
+                    .setColor(0xe6d0ce)
+                    .setDescription("operation cancelled")
+                ]
             })
 
             if (id === 0) {
@@ -116,29 +119,47 @@ const embedit = async (message, args) => {
                 else val = resp?.replace("#", "")
                 msg.delete()
                 embMsg.edit({
-                    embeds: [{
-                        color: val,
-                        title: emb.embed.title,
-                        description: emb.embed.description,
-                        image: { url: emb.embed.image },
-                        thumbnail: { url: emb.embed.thumbnail },
-                        timestamp: emb.embed.timestamp ? Date.now() : null
-                    }]
+                    embeds: [
+											new EmbedBuilder()
+                        .setColor(val)
+                        .setTitle(emb.embed.title)
+                        .setDescription(emb.embed.description)
+                        .setImage(emb.embed.image)
+                        .setThumbnail(emb.embed.thumbnail)
+                        .setTimestamp(emb.embed.timestamp ? Date.now() : null)
+                    ]
                 })
                 stateMsg.edit(states[6])
             }
-            if (id === 1 || id === 2) {
+						if (id === 1) {
+                val = resp?.toLowerCase() === "remove" ? null : translate_emotes(resp, message.guild)
+                msg.delete()
+                embMsg.edit({
+                    embeds: [
+											new EmbedBuilder()
+                        .setColor(emb.embed.color)
+                        .setTitle(val)
+                        .setDescription(emb.embed.description)
+                        .setImage(emb.embed.image)
+                        .setThumbnail(emb.embed.thumbnail)
+                        .setTimestamp(emb.embed.timestamp ? Date.now() : null)
+                    ]
+                })
+                stateMsg.edit(states[6])
+						}
+            if (id === 2) {
                 val = translate_emotes(resp, message.guild)
                 msg.delete()
                 embMsg.edit({
-                    embeds: [{
-                        color: emb.embed.color,
-                        title: id === 1 ? val : emb.embed.title,
-                        description: id === 2 ? val : emb.embed.description,
-                        image: { url: emb.embed.image },
-                        thumbnail: { url: emb.embed.thumbnail },
-                        timestamp: emb.embed.timestamp ? Date.now() : null
-                    }]
+                    embeds: [
+											new EmbedBuilder()
+                        .setColor(emb.embed.color)
+                        .setTitle(emb.embed.title)
+                        .setDescription(val)
+                        .setImage(emb.embed.image)
+                        .setThumbnail(emb.embed.thumbnail)
+                        .setTimestamp(emb.embed.timestamp ? Date.now() : null)
+                    ]
                 })
                 stateMsg.edit(states[6])
             }
@@ -147,14 +168,15 @@ const embedit = async (message, args) => {
                 else val = resp
                 msg.delete()
                 embMsg.edit({
-                    embeds: [{
-                        color: emb.embed.color,
-                        title: emb.embed.title,
-                        description: emb.embed.description,
-                        image: { url: id === 3 ? val : emb.embed.image },
-                        thumbnail: { url: id === 4 ? val : emb.embed.thumbnail },
-                        timestamp: emb.embed.timestamp ? Date.now() : null
-                    }]
+                    embeds: [
+											new EmbedBuilder()
+                        .setColor(emb.embed.color)
+                        .setTitle(emb.embed.title)
+                        .setDescription(emb.embed.description)
+                        .setImage(id === 3 ? val : emb.embed.image)
+                        .setThumbnail(id === 4 ? val : emb.embed.thumbnail)
+                        .setTimestamp(emb.embed.timestamp ? Date.now() : null)
+                    ]
                 })
                 stateMsg.edit(states[6])
             }
@@ -163,14 +185,15 @@ const embedit = async (message, args) => {
                 else val = false
                 msg.delete()
                 embMsg.edit({
-                    embeds: [{
-                        color: emb.embed.color,
-                        title: id === 1 ? val : emb.embed.title,
-                        description: id === 2 ? val : emb.embed.description,
-                        image: { url: emb.embed.image },
-                        thumbnail: { url: emb.embed.thumbnail },
-                        timestamp: val ? Date.now() : null
-                    }]
+                    embeds: [
+											new EmbedBuilder()
+                        .setColor(emb.embed.color)
+                        .setTitle(id === 1 ? val : emb.embed.title)
+                        .setDescription(id === 2 ? val : emb.embed.description)
+                        .setImage(emb.embed.image)
+                        .setThumbnail(emb.embed.thumbnail)
+                        .setTimestamp(val ? Date.now() : null)
+                    ]
                 })
                 stateMsg.edit(states[6])
             }
@@ -179,20 +202,20 @@ const embedit = async (message, args) => {
                 .then(m => {
                     const confirmation = m.first().content
                     if (confirmation.toLowerCase() === 'no') return message.channel.send({
-						embeds: [{
-							color: 0xe6d0ce,
-							description: "seems you reconsidered"
-						}]
-					})
-					else {
-						m.delete()
-                        msg.delete()
-						stateMsg.delete()
-						embMsg.delete()
-						edit(message, emb, prop, val)
-					}
+											embeds: [
+												new EmbedBuilder()
+												.setColor(0xe6d0ce)
+												.setDescription("seems you reconsidered")
+											]
+										})
+										else {
+											m.delete()
+											msg.delete()
+											stateMsg.delete()
+											embMsg.delete()
+											edit(message, emb, prop, val)
+										}
                 })
-
         })
 
 }

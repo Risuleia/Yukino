@@ -4,7 +4,7 @@ const construct = (color = 0xffffff, title, description, image, thumbnail, times
 	
 	const emb = {
 		color: color,
-		title: title || "Title here",
+		title: title,
 		description: description || "Description here",
 		image: image || null,
 		thumbnail: thumbnail || null,

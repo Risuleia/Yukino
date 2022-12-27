@@ -28,6 +28,10 @@ const status = (client) => {
 			type: ActivityType.Competing
 		},
 		6: {
+			content: 'gg/iloveyou',
+			type: ActivityType.Streaming
+		},
+		7: {
 			content: 'Cosplaying in mariposa',
 			type: ActivityType.Custom
 		}
@@ -37,6 +41,7 @@ const status = (client) => {
 	const rand = Math.floor(Math.random() * length)
 	
 	client.user.setActivity(states[rand].content, { type: states[rand].type })
+	client.user.setStatus(rand == 6 ? 'streaming' : 'idle')
 	
 }
 

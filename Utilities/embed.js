@@ -5,7 +5,7 @@ const check = require('./check')
 const create = async (channel, emb, author = null, content = false) => {
 
 	if (!emb) return
-	if (!emb.title || !emb.description) return
+	if (!emb.description) return
 
 	let color = emb.color
 	let title = emb.title
