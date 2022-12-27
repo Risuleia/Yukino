@@ -3,9 +3,13 @@ const translate_emotes = require("../../Models/emote-translator")
 const construct = require("../emb")
 const { create, add } = require("../embed")
 const Regex = require("../../Models/regex")
+const db = require('../../db')
 
 const embcreate = async (message) => {
     const chan = message.channel
+
+		// embeds
+		const embeds = await db.get('embeds')
 
     // cancel message
     const cancel = () => {
@@ -42,22 +46,22 @@ const embcreate = async (message) => {
         return (m.content.split("").length <= 4096 && m.author.id === message.author.id)
     }
     const image_filter = m => {
-        return ((img.test(m.content) || ["skip", "skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const thumbnail_filter = m => {
-        return ((img.test(m.content) || ["skip", "skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
+        return ((img.test(m.content) || ["skip", "cancel", "{user_avatar}", "{server_icon}"].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const timestamp_filter = m => {
         return ((['skip', 'cancel', 'yes', 'no'].some(word => word === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
     const name_filter = m => {
-        return (!(space.test(m.content)) && m.author.id === message.author.id)
+        return (!(space.test(m.content)) && !(embeds.some(emb => emb.name === m.content.toLowerCase())) && m.author.id === message.author.id)
     }
 
     // responses
     const states = [
         "What should the color of your embed be?\n__Allowed Values:__\n- Hex (example: #000000)\n- \"Random\" (Chooses a random color for your embed)\n- A variable like \`{user_displaycolor}\`\n- \"Skip\" (Goes with the default color of white.)",
-        "What will your embed be about? Send the title! (cannot be omitted)",
+        "What will your embed be about? Send the title! (\"Skip\" to proceed with none)",
         "Next, tell me what your embed will say. Send the description. (cannot be omitted)",
         "Does your embed need an image? If yes, respond with a valid image URL, or use variables like \`{user_avatar}\` or \`{server_icon}\`. Otherwise, type \"skip\".",
         "Need a thumbnail for your pretty embed? Respond with a valid image URL, or use variables like \`{user_avatar}\` or \`{server_icon}\`. Type \"skip\" if it doesn't need one.",
@@ -76,7 +80,7 @@ const embcreate = async (message) => {
             chan.awaitMessages({ filter: title_filter, max: 1, time: 60000 })
                 .then(ttl => {
                     if (ttl.first().content.toLowerCase() === "cancel") return cancel()
-                    title = translate_emotes(ttl.first().content, message.guild)
+                    title = ttl.first().content.toLowerCase() === "skip" ? null : translate_emotes(ttl.first().content, message.guild)
 
                     // description
                     chan.send(states[2])

@@ -1,6 +1,6 @@
-const db = require("../db");
+const { ActivityType } = require("discord.js");
 const client = require("../index");
-const check = require("../Utilities/check");
+const check = require("../Utilities/check")
 const status = require("../Utilities/status")
 
 client.on("ready", async () => {

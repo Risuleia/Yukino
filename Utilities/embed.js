@@ -2,10 +2,10 @@ const { EmbedBuilder } = require('discord.js')
 const db = require('../db')
 const check = require('./check')
 
-const create = async (channel, emb, author = null, content = false) => {
+const create = async (channel, emb, author = null, type = false) => {
 
 	if (!emb) return
-	if (!emb.title || !emb.description) return
+	if (!emb.description) return
 
 	let color = emb.color
 	let title = emb.title
@@ -22,13 +22,13 @@ const create = async (channel, emb, author = null, content = false) => {
 			.setThumbnail(thumbnail ? thumbnail : null)
 			.setTimestamp(!timestamp ? null : Date.now())
 
-	if (author) embed.setAuthor({
+	if (author && type === 'welc') embed.setAuthor({
 		name: `${author.user.username}#${author.user.discriminator}`,
 		iconURL: await author.displayAvatarURL({ dynamic: true })
 	})
 
-	if (content && author) return channel.send({
-		content: `**Hiii! ${author.toString()}**`,
+	if (type && author) return channel.send({
+		content: type === 'welc' ? `**Hiii! ${author.toString()}**` : `**${author.toString()} Just Boosted!**`,
 		embeds: [embed]
 	})
 		

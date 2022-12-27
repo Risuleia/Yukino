@@ -1,7 +1,6 @@
 // Dependencies
+require('dotenv').config()
 const { Client, Collection, IntentsBitField, Partials } = require("discord.js");
-const { DisTube } = require("distube");
-const { SpotifyPlugin } = require("@distube/spotify");
 const fs = require('fs');
 
 // Creating the client
@@ -42,14 +41,6 @@ const client = new Client({
 });
 module.exports = client;
 
-// Creating the voice client
-client.distube = new DisTube(client, {
-	emitNewSongOnly: true,
-	leaveOnFinish: true,
-	emitAddSongWhenCreatingQueue: false,
-	plugins: [new SpotifyPlugin()]
-})
-
 
 // Web server
 const alive = require('./server');
@@ -64,7 +55,6 @@ client.snipes = new Collection();
 client.rsnipes = new Collection();
 client.esnipes = new Collection();
 client.afk = new Collection();
-client.queues = new Map();
 client.servers = new Collection();
 
 // Initializing the project

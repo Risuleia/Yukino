@@ -28,6 +28,10 @@ const status = (client) => {
 			type: ActivityType.Competing
 		},
 		6: {
+			content: 'gg/iloveyou',
+			type: ActivityType.Streaming
+		},
+		7: {
 			content: 'Cosplaying in mariposa',
 			type: ActivityType.Custom
 		}
@@ -35,8 +39,8 @@ const status = (client) => {
 
 	const length = Object.keys(states).length
 	const rand = Math.floor(Math.random() * length)
-	
-	client.user.setActivity(states[rand].content, { type: states[rand].type })
+
+	client.user.setActivity(states[rand].content, { type: states[rand].type, url: 'https://www.youtube.com/watch?v=VxgqVE4vv28' })
 	
 }
 
