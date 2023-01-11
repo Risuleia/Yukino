@@ -49,10 +49,4 @@ module.exports = async (client) => {
         await client.application.commands.set(arrayOfSlashCommands);
     });
 
-		// mongoose
-		const mongooseConnectionString = process.env.MONGOOSECONNECTIONSTRING
-		if (!mongooseConnectionString) return;
-	
-		mongoose.connect(mongooseConnectionString)
-			.then(() => console.log('Connected to MongoDB'));
 }

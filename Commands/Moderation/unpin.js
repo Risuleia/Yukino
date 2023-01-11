@@ -1,3 +1,6 @@
+const { EmbedBuilder } = require('discord.js')
+const { misc } = require('../../Utilities/emotes')
+
 module.exports = {
   name: 'unpin',
   aliases: [],

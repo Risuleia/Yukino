@@ -1,4 +1,6 @@
 const Regex = require("../../Models/regex")
+const { EmbedBuilder } = require('discord.js')
+const { misc, bounceheart } = require('../../Utilities/emotes')
 
 module.exports = {
     name: "setrole",
@@ -11,30 +13,28 @@ module.exports = {
 
         const param = ['admin', 'headmod', 'mod', 'tmod', 'pollmanager', 'pm', 'headpm', 'uploader', 'muterole']
 
-        if (!args.length || args.length < 1) return chan.send({
-            content: "specify a parameter",
-            reply: { messageReference: message.id }
-        })
+				const err = (str) => {
+					message.reply({
+						embeds: [
+								new EmbedBuilder()
+									.setColor(0x2f3136)
+									.setDescription(`${misc.catstanding} _${str}_`)
+							]
+					})
+				}
+
+        if (!args.length || args.length < 1) return err("Specify a parameter.")
         
         const arg = args[0]?.toLowerCase()
-        if (!param.some(p => p === arg)) return chan.send({
-            content: "not a valid parameter",
-            reply: { messageReference: message.id }
-        })
+        if (!param.some(p => p === arg)) return err("Not a valid parameter.")
 
         const setting = args[1]?.toLowerCase()
-        if (!setting) return chan.send({
-            content: "provide something to set",
-            reply: { messageReference: message.id }
-        })
+        if (!setting) return err("Provide something to set.")
 
         const regex = Regex.role_specific
         const replacement = /<|@|&|>/g
         const match = setting.match(regex)
-        if (!match) return chan.send({
-            content: "not a valid option",
-            reply: { messageReference: message.id }
-        })
+        if (!match) return err("Not a valid option.")
 
         const role = match[0]?.toLowerCase() === "remove" ? null : await message.guild.roles.cache.find(r => r.id === match[0]?.replace(replacement,""))
 
@@ -57,9 +57,9 @@ module.exports = {
 
         chan.send({
             embeds: [{
-                color: 0xe6d0ce,
+                color: 0x2f3136,
                 title: headings[arg],
-                description: `${!original ? "_None_" : await message.guild.roles.cache.find(r => r.id === original)?.toString()} → ${!role ? "_None_" : role?.toString()}`
+                description: `${bounceheart.pink} ${!original ? "_None_" : await message.guild.roles.cache.find(r => r.id === original)?.toString()} ${arrows.pink} ${!role ? "_None_" : role?.toString()}`
             }]
         })
 

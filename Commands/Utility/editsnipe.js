@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require('discord.js')
+const { misc } = require('../../Utilities/emotes')
 const trim = require('../../Models/trim')
 const moment = require('moment');
 
@@ -12,12 +13,12 @@ module.exports = {
     const esnipes = client.esnipes.get(message.channel.id);
 		console.log(client.esnipes)
 
-    if (!esnipes) return message.reply('There are no edited messages in this channel!');
+    if (!esnipes) return err('There are no edited messages in this channel!');
 
     const esnipe = +args[0] - 1 || 0;
     
     const target = esnipes[esnipe]
-    if (!target) return message.reply(`There are only ${esnipes.length} deleted messages in this channel.`)
+    if (!target) return err(`There are only ${esnipes.length} deleted messages in this channel.`)
 
     const { newmsg, oldmsg, time, image } = target
 

@@ -1,4 +1,6 @@
 const Regex = require("../../Models/regex")
+const { misc, bounceheart, arrows } = require('../../Utilities/emotes')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
     name: "setchannel",
@@ -11,30 +13,28 @@ module.exports = {
 
         const param = ['announcements', 'welcome', 'boost', 'polls', 'modmail']
 
-        if (!args.length || args.length < 1) return chan.send({
-            content: "specify a parameter",
-            reply: { messageReference: message.id }
-        })
+				const err = (str) => {
+					message.reply({
+						embeds: [
+								new EmbedBuilder()
+									.setColor(0x2f3136)
+									.setDescription(`${misc.catstanding} _${str}_`)
+							]
+					})
+				}
+
+        if (!args.length || args.length < 1) return err('Specify a paramater.')
         
         const arg = args[0]?.toLowerCase()
-        if (!param.some(p => p === arg)) return chan.send({
-            content: "not a valid parameter",
-            reply: { messageReference: message.id }
-        })
+        if (!param.some(p => p === arg)) return err("Not a valid parameter.")
 
         const setting = args[1]?.toLowerCase()
-        if (!setting) return chan.send({
-            content: "provide something to set",
-            reply: { messageReference: message.id }
-        })
+        if (!setting) return err("Provide something to set.")
         
         const regex = Regex.channel_specific
         const replacement = /<|#|>/g
         const match = setting.match(regex)
-        if (!match) return chan.send({
-            content: "not a valid option",
-            reply: { messageReference: message.id }
-        })
+        if (!match) return err("Not a valid option.")
 
         const channel = match[0]?.toLowerCase() === "remove" ? null : await message.guild.channels.cache.find(c => c.id === match[0]?.replace(replacement,""))
 
@@ -53,9 +53,9 @@ module.exports = {
 
         chan.send({
             embeds: [{
-                color: 0xe6d0ce,
+                color: 0x2f3136,
                 title: headings[arg],
-                description: `${!original ? "_None_" : await message.guild.channels.cache.find(c => c.id === original)?.toString()} → ${!channel ? "_None_" : channel?.toString()}`
+                description: `${bounceheart.purple} ${!original ? "_None_" : await message.guild.channels.cache.find(c => c.id === original)?.toString()} ${arrows.pink} ${!channel ? "_None_" : channel?.toString()}`
             }]
         })
 

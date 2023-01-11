@@ -1,3 +1,6 @@
+const { EmbedBuilder } = require('discord.js')
+const { misc } = require('../../Utilities/emotes')
+
 module.exports = {
   name: 'pin',
   aliases: [],
@@ -7,12 +10,12 @@ module.exports = {
   dm: false,
   execute: async (client, message, args, db) => {
 
-    if (!message.reference) {
-      message.reply("You need to reply to a message to pin it!")
-    } else {
-      message.channel.messages.pin(message.reference.messageId)
-      message.delete()
-    }
+    if (!message.reference) return err("You need to reply to a message to pin it!")
+		const pins = await message.channel?.messages?.fetchPinned()
+		if (pins.size == 50) return err("This channel has reached the max number of pins.")
+		
+		message.channel.messages.pin(message.reference.messageId)
+		message.delete()
 
   }
 }

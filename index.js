@@ -2,6 +2,7 @@
 require('dotenv').config()
 const { Client, Collection, IntentsBitField, Partials } = require("discord.js");
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 // Creating the client
 const intents = [
@@ -57,12 +58,21 @@ client.esnipes = new Collection();
 client.afk = new Collection();
 client.servers = new Collection();
 
-// Initializing the project
-require("./Handlers")(client);
+// mongoose
+const mongooseConnectionString = process.env.MONGOOSECONNECTIONSTRING
+if (!mongooseConnectionString) return;
 
-// Starting up the web server
-// alive(client)
+mongoose.connect(mongooseConnectionString)
+	.then(() => {
+		console.log('Connected to MongoDB');
 
-// Logging in
-const token = process.env.TOKEN;
-client.login(token);
+		// Initializing the project
+		require("./Handlers")(client);
+		
+		// Starting up the web server
+		// alive(client)
+		
+		// Logging in
+		const token = process.env.TOKEN;
+		client.login(token);
+	});

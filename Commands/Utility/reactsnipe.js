@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
+const { misc } = require('../../Utilities/emotes')
 const moment = require('moment');
 
 module.exports = {
@@ -8,13 +9,23 @@ module.exports = {
 	dm: false,
   execute: async (client, message, args, db) => {
 
+		const err = (str) => {
+			message.reply({
+				embeds: [
+						new EmbedBuilder()
+							.setColor(0x2f3136)
+							.setDescription(`${misc.catstanding} _${str}_`)
+					]
+			})
+		}
+
     const rsnipes = client.rsnipes.get(message.channel.id)
-    if (!rsnipes) return message.reply('No reactions have been added in this channel!')
+    if (!rsnipes) return err('No reactions have been added in this channel!')
 
     const rsnipe = +args[0] - 1 || 0;
     
     const target = rsnipes[rsnipe]
-    if (!target) return message.reply(`There are only ${rsnipes.length} reactions in this channel.`)
+    if (!target) return err(`There are only ${rsnipes.length} reactions in this channel.`)
 
     const { msg, time, reaction, user } = target
 

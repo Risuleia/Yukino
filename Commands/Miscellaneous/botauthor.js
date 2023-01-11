@@ -1,3 +1,5 @@
+const { hearts, butterflies } = require('../../Utilities/emotes.js')
+
 module.exports = {
   name: 'botauthor',
   aliases: ['botowner', 'author'],
@@ -7,10 +9,10 @@ module.exports = {
 
     const risu = await client.users.fetch("693623099710505041")
     const mimi = await client.users.fetch("800686782114693180")
-    const content = `Created with ♡ by ${risu.toString()}!\nDebugged with assistance from ${mimi.toString()}!`
+    const content = `_Created with_${hearts.blueberry}_by_ ${risu.toString()} !\n_Debugged with assistance from _${mimi.toString()} ! ${butterflies.fuchsia}`
 
     const emb = {
-      color: 0xe6d0ce,
+      color: 0x2f3136,
       description: content
     }
 

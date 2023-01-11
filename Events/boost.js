@@ -4,7 +4,7 @@ const sendboost = require('../Utilities/sendboost')
 
 client.on('messageCreate', async message => {
 
-	const id = await db.get('serverconf').boost
+	const id = await db.get('serverconf')?.boost
 	if (!id) return
 	const boost_chan = message.guild.channels.cache.find(c => c.id == id)
 	if (!boost_chan) return

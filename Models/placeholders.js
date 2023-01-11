@@ -77,10 +77,10 @@ const placeholders = {
         return chan.id
     },
     boostcount: (user, guild, chan) => {
-        return guild.premiumSubscriptionCount
+        return client.servers.get(guild.id)?.premiumSubscriptionCount
     },
     boostlvl: (user, guild, chan) => {
-        const tier = guild.premiumTier
+        const tier = client.servers.get(guild.id)?.premiumTier
         let lvl = 0
         if (tier === "NONE") lvl = 0
         else if (tier === "TIER_1") lvl = 1
@@ -89,7 +89,7 @@ const placeholders = {
         return lvl
     },
     next_boostlvl: (user, guild, chan) => {
-        const tier = guild.premiumTier
+        const tier = client.servers.get(guild.id)?.premiumTier
         let nextlvl = 0
         if (tier === "NONE") nextlvl = 1
         else if (tier === "TIER_1") nextlvl = 2
@@ -99,8 +99,8 @@ const placeholders = {
     },
     next_boostlvl_reqd: (user, guild, chan) => {
 
-        const current = guild.premiumSubscriptionCount
-        const tier = guild.premiumTier
+        const current = client.servers.get(guild.id)?.premiumSubscriptionCount
+        const tier = client.servers.get(guild.id)?.premiumTier
 
         let lvl = 0
         let nextlvl = lvl == 3 ? 3 : lvl + 1

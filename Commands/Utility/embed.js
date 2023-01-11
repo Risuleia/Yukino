@@ -2,6 +2,8 @@ const { remove } = require("../../Utilities/embed")
 const embcreate = require("../../Utilities/embed-utils/emb-create")
 const embsend = require("../../Utilities/embed-utils/emb-send")
 const embedit = require("../../Utilities/embed-utils/emb-edit")
+const { misc, dots, hearts, kanna } = require('../../Utilities/emotes')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
 	name: "embed",
@@ -12,14 +14,21 @@ module.exports = {
 	dm: false,
 	execute: async (client, message, args, db) => {
 
+		const err = (str) => {
+			message.reply({
+				embeds: [
+						new EmbedBuilder()
+							.setColor(0x2f3136)
+							.setDescription(`${misc.catstanding} _${str}_`)
+					]
+			})
+		}
+
 		const allowedParams = ['add', 'create', '+', 'remove', 'delete', '-', 'edit', '+=', 'send', 'show', 'list']
 
 		const param = args[0]?.toLowerCase()
 
-		if (!(allowedParams.some(allowedParam => allowedParam === param))) return message.channel.send({
-			content: "that's not a valid parameter, see the help for this command :)",
-			reply: { messageReference: message.id }
-		})
+		if (!(allowedParams.some(allowedParam => allowedParam === param))) return err("That's not a valid parameter.")
 
 
 		//  subcmds
@@ -47,16 +56,13 @@ module.exports = {
 
 			const embeds = await db.get('embeds')
 
-			message.channel.send({
-				embeds: [{
-					color: 0xe6d0ce,
-					title: "here are all the embeds:",
-					description: (!embeds || !embeds.length || embeds.length == 0) ? "you dont have any embeds yet... create some pretty embeds, luv!" : embeds.map(emb => emb.name).join("\n"),
-					footer: {
-						text: "Yukino <3"
-					}
-				}],
-				reply: { messageReference: message.id },
+			message.reply({
+				embeds: [
+					new EmbedBuilder()
+						.setColor(0x37393e)
+						.setTitle(`${hearts.blueberry} Here are all the embeds:`)
+						.setDescription((!embeds || !embeds.length || embeds.length == 0) ? `${kanna.prayinghappy}_you dont have any embeds yet... create some pretty embeds, luv!_` : `${embeds.map(emb => `${dots.flower} ${emb.name}`).join("\n")}`)
+				],
 				allowedMentions: { repliedUser: false }
 			})
 			

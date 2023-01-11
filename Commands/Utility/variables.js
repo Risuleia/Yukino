@@ -1,14 +1,15 @@
 const placeholders = require("../../Models/placeholders")
+const { lines, hearts } = require('../../Utilities/emotes')
 
 module.exports = {
     name: "variables",
-    aliases: ['vars'],
+    aliases: ['vars', 'var'],
     description: "Shows all the available placeholders.",
     dm: false,
     execute: async (client, message, args, db) => {
         
         const ph = Object.keys(placeholders)
-        const desc = ph.map(a => `\`{${a}}\``)
+        const desc = ph.map(a => `‎‎‎‎‎‎‎‎ㅤ*\`{${a}}\`*`)
 
         const type_user = desc.filter(a => a.includes('user'))
         const type_server = desc.filter(a => a.includes('server'))
@@ -16,35 +17,34 @@ module.exports = {
         const type_channel = desc.filter(a => a.includes('channel') && !a.includes('server'))
 
         const emb = {
-            color: 0xabdecf,
-            title: "Yukino's Placeholders",
+            color: 0x37393e,
+            title: `_My Variables_ ${hearts.bubblegum}`,
             fields: [
                 {
-                    name: "─  User‛﹒",
+                    name: `${lines.pink}  User‛`,
                     value: type_user.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  Server‛﹒",
+                    name: `${lines.pink}  Server‛`,
                     value: type_server.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  Boost‛﹒",
+                    name: `${lines.pink}  Boost‛`,
                     value: type_boost.join('\n'),
                     inline: true
                 },
                 {
-                    name: "─  Channel‛﹒",
+                    name: `${lines.pink}  Channel‛`,
                     value: type_channel.join('\n'),
                     inline: true
                 }
             ]
         }
         
-        message.channel.send({
+        message.reply({
             embeds: [emb],
-            reply: { messageReference: message.id },
             allowedMentions: { repliedUser: false }
         })
 

@@ -1,4 +1,4 @@
-const { numbers } = require("../../Utilities/emotes.js");
+const { numbers, misc } = require("../../Utilities/emotes.js");
 const colors = require("../../Utilities/colors.json");
 const Regex = require("../../Models/regex.js");
 const { EmbedBuilder } = require("discord.js");
@@ -11,7 +11,17 @@ module.exports = {
 	dm: false,
 	execute: async (client, message, args, db) => {
 
-		const polls = await db.get('serverconf').polls
+		const err = (str) => {
+			message.reply({
+				embeds: [
+						new EmbedBuilder()
+							.setColor(0x2f3136)
+							.setDescription(`${misc.catstanding} _${str}_`)
+					]
+			})
+		}
+
+		const polls = await db.get('serverconf')?.polls
 
 		// number emotes
 		let num = [numbers.one, numbers.two, numbers.three, numbers.four, numbers.five, numbers.six, numbers.seven, numbers.eight, numbers.nine];
@@ -32,9 +42,9 @@ module.exports = {
 		const choices = parts[1]?.split(";")?.map(c => c.replace(wspace1,'').replace(wspace2,' '))
 
 		// checks
-		if (!title || !title.length || arg?.split("|")?.map(t => t?.replace(wspace1,'')).length > 2 || !choices || !choices.length) return message.reply("That's not the correct usage of the command!")
-		if (choices.length < 2) return message.reply("You need to provide atleast 2 choices!")
-		if (choices.length > 9) return message.reply("You can only provide up to 9 choices!")
+		if (!title || !title.length || arg?.split("|")?.map(t => t?.replace(wspace1,'')).length > 2 || !choices || !choices.length) return err("That's not the correct usage of the command!")
+		if (choices.length < 2) return err("You need to provide atleast 2 choices!")
+		if (choices.length > 9) return err("You can only provide up to 9 choices!")
 
 		// choice mapping
 		let choiceMap = num.slice(0,choices.length).map((n, index) => `꒰${n}꒱ ${choices[index]}`)

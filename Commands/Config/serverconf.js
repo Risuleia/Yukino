@@ -44,10 +44,10 @@ module.exports = {
         const welcome_emb = config.welcome_emb ? config.welcome_emb : "_Not Set_"
         const boost_emb = config.boost_emb ? config.boost_emb : "_Not Set_"
         
-        const desc = `  ˚₊  __Staff__\nAdmin Role: ${admin}\nHead-Mod Role: ${headmod}\nMod Role: ${mod}\nT-Mod Role: ${tmod}\n\n  ˚₊  __Roles__\nHead Partner Manager: ${headpm}\nPartnership Manager: ${pm}\nPoll Manager: ${pollmanager}\n Uploader: ${uploader}\nMute-role: ${muterole}\n\n  ˚₊  __Channels__\nAnnouncements: ${announcements}\nWelcome: ${welcome}\nBoost: ${boost}\nPolls: ${polls}\nModmail: ${modmail}\n\n  ˚₊  __Embeds__\nWelcome Embed: ${welcome_emb}\nBoost Embed: ${boost_emb}`
+        const desc = `  ˚₊  __General__\nPrefix: \`${client.config.prefix}\`\n\n  ˚₊  __Staff__\nAdmin Role: ${admin}\nHead-Mod Role: ${headmod}\nMod Role: ${mod}\nT-Mod Role: ${tmod}\n\n  ˚₊  __Roles__\nHead Partner Manager: ${headpm}\nPartnership Manager: ${pm}\nPoll Manager: ${pollmanager}\n Uploader: ${uploader}\nMute-role: ${muterole}\n\n  ˚₊  __Channels__\nAnnouncements: ${announcements}\nWelcome: ${welcome}\nBoost: ${boost}\nPolls: ${polls}\nModmail: ${modmail}\n\n  ˚₊  __Embeds__\nWelcome Embed: ${welcome_emb}\nBoost Embed: ${boost_emb}`
         
         const emb = {
-            color: 0xabcedf,
+            color: 0x2f3136,
             title: "Server Configuration",
             description: desc
         }

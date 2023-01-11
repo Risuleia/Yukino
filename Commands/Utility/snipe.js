@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require('discord.js')
+const { misc } = require('../../Utilities/emotes')
 const moment = require('moment');
 const trim = require('../../Models/trim')
 
@@ -9,13 +10,23 @@ module.exports = {
 	dm: false,
   execute: async (client, message, args, db) => {
 
+		const err = (str) => {
+			message.reply({
+				embeds: [
+						new EmbedBuilder()
+							.setColor(0x2f3136)
+							.setDescription(`${misc.catstanding} _${str}_`)
+					]
+			})
+		}
+
     const snipes = client.snipes.get(message.channel.id)
-    if (!snipes) return message.reply('There are no deleted messages in this channel!')
+    if (!snipes) return err('There are no deleted messages in this channel!')
 
     const snipe = +args[0] - 1 || 0;
     
     const target = snipes[snipe]
-    if (!target) return message.reply(`There are only ${snipes.length} deleted messages in this channel.`)
+    if (!target) return err(`There are only ${snipes.length} deleted messages in this channel.`)
 
     const { msg, time, image } = target
 
