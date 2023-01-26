@@ -77,7 +77,7 @@ const placeholders = {
         return chan.id
     },
     boostcount: (user, guild, chan) => {
-        return client.servers.get(guild.id)?.premiumSubscriptionCount
+        return guild.premiumSubscriptionCount
     },
     boostlvl: (user, guild, chan) => {
         const tier = client.servers.get(guild.id)?.premiumTier

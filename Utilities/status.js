@@ -1,6 +1,7 @@
 const { ActivityType } = require("discord-api-types/v10")
+const db = require('../db')
 
-const status = (client) => {
+const status = async (client) => {
 	
 	const states = {
 		0: {

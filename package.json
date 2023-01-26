@@ -23,6 +23,7 @@
     "express": "^4.18.1",
     "glob": "^8.0.3",
     "moment": "^2.29.3",
+    "moment-timezone": "^0.5.40",
     "mongoose": "^6.3.3",
     "reconlx": "^2.5.6"
   }

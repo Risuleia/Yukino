@@ -1,15 +1,9 @@
-const { ActivityType } = require("discord.js");
 const client = require("../index");
 const check = require("../Utilities/check")
 const status = require("../Utilities/status")
+const moment = require("moment-timezone")
 
-client.on("ready", async () => {
-
-  console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setStatus('idle');
-	setInterval(() => {
-		status(client)
-	}, 30000)
+client.once("ready", async () => {
 
 	const guilds = client.guilds.cache
 	guilds.forEach(async guild => {
@@ -24,5 +18,16 @@ client.on("ready", async () => {
 	})
 
 	check()
+
+	console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setStatus('idle');
+
+	const bday = 'Jan 27'
+	const tdy = moment.tz('Asia/Dubai').format('ll')
+	if (tdy.includes(bday)) return client.user.setActivity('happy birthday, mimi!!!')
+	
+	setInterval(() => {
+		status(client)
+	}, 30000)
 
 });
