@@ -36,9 +36,15 @@ module.exports = {
 
     try {
       target.roles.remove(muteRole.toString(), args.length > 1 ? args.slice(1,args.length).join(` `) : `Muted by ${message.author.tag}`)
-        .then(user => message.reply(`_Unmuted_ ${user.user.tag}_._ ${kanna.sip}`))
-    } catch {
-      e => message.reply("Some error occured while trying to process your request.") 
+        .then(user => message.reply({
+						embeds: [
+							new EmbedBuilder()
+								.setColor(0x2f3136)
+								.setDescription(`_Unmuted_ ${user.user.tag}_._ ${kanna.sip}`)
+						]
+				 }))
+    } catch (error) {
+      return err("Some error occured while trying to process your request.") 
     }
 
   }

@@ -20,13 +20,13 @@ module.exports = {
         
         if (!args || !args.length || !args.length < 0) return message.reply('pls provide a valid user id')
 
-        const id = args[0]
+        let id = args[0] ? args[0] : (message.channnel.isDMBased && modmail.channels.cache.find(c => c.id === message.channel.id)) ? message.channel.name : null
         if (!Regex.id.test(id)) return message.reply('pls provide a valid user id')
 
         const members = mariposa.members.cache
         const bans = mariposa.bans.cache
 
-        if (!(members.find(u => u.id === id) || bans.find(b => b.user.id === id))) return message.reply('that\'s not a valid user')
+        if (!(members.find(u => u.id === id) || bans.find(b => b.user.id === id))) return message.reply('no such modmail channel found')
 
         const user = await client.users.fetch(id)
 

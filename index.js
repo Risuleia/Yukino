@@ -44,7 +44,7 @@ module.exports = client;
 
 
 // Web server
-const alive = require('./server');
+// const alive = require('./server');
 
 // Global Variables
 client.commands = new Collection();
@@ -70,7 +70,7 @@ mongoose.connect(mongooseConnectionString)
 		require("./Handlers")(client);
 		
 		// Starting up the web server
-		alive(client)
+		// alive(client)
 		
 		// Logging in
 		const token = process.env.TOKEN;

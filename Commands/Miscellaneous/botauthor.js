@@ -10,15 +10,16 @@ module.exports = {
     const risu = await client.users.fetch("693623099710505041")
     const mimi = await client.users.fetch("800686782114693180")
     const content = `_Created with_${hearts.blueberry}_by_ ${risu.toString()} !\n_Debugged with assistance from _${mimi.toString()} ! ${butterflies.fuchsia}`
+		const content_new = `_Created with_${hearts.blueberry}_by_ ${mimi.toString()} !`
 
     const emb = {
       color: 0x2f3136,
-      description: content
+      description: content_new
     }
 
     message.reply({
       embeds: [emb],
-      allowedMentions: { repliedUser: false, users: false }
+      allowedMentions: { repliedUser: false }
     })
   }
 }

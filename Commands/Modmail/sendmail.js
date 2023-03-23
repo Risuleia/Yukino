@@ -1,6 +1,4 @@
-const { blockQuote, underscore, quote } = require("@discordjs/builders")
 const { EmbedBuilder } = require("discord.js")
-const { numbers } = require("../../Utilities/emotes")
 const { addmail } = require("../../Utilities/modmail")
 
 module.exports = {

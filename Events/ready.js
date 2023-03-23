@@ -25,8 +25,7 @@ client.once("ready", async () => {
 	const bday = 'Jan 27'
 	const tdy = moment.tz('Asia/Dubai').format('ll')
 	if (tdy.includes(bday)) return client.user.setActivity('happy birthday, mimi!!!')
-	
-	setInterval(() => {
+	else setInterval(() => {
 		status(client)
 	}, 30000)
 

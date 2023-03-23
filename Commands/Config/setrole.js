@@ -1,6 +1,6 @@
 const Regex = require("../../Models/regex")
 const { EmbedBuilder } = require('discord.js')
-const { misc, bounceheart } = require('../../Utilities/emotes')
+const { misc, bounceheart, arrows } = require('../../Utilities/emotes')
 
 module.exports = {
     name: "setrole",
