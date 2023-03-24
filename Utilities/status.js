@@ -31,12 +31,8 @@ const status = async (client) => {
 			type: ActivityType.Competing
 		},
 		4: {
-			content: 'gg/iloveyou',
+			content: `.gg/${mariposa.vanityURLCode}`,
 			type: ActivityType.Streaming
-		},
-		5: {
-			content: '🩰 Cosplaying in mariposa',
-			type: ActivityType.Custom
 		}
 	}
 

@@ -2,15 +2,19 @@ const client = require("../index");
 const db = require("../db");
 
 client.on("messageCreate", async message => {
+
+		const conf = await db.get('serverconf')
+		const PREFIX = !conf?.prefix ? client.config.prefix : conf.prefix
+	
     if (
         message.author.bot ||
         (!message.guild && !message.channel.isDMBased()) ||
-        !message.content.toLowerCase().startsWith(client.config.prefix)
+        !message.content.toLowerCase().startsWith(PREFIX)
     )
         return;
-
+		
     const [cmd, ...args] = message.content
-        .slice(client.config.prefix.length)
+        .slice(PREFIX.length)
         .trim()
         .split(/ +/g);
 
