@@ -10,7 +10,7 @@ module.exports = {
 	aliases: ['emb'],
 	description: "Stores, removes, edits, shows or sends an embed.",
 	usage: "<add/edit/remove/send/show/list> <embed name (if used with `send`, `show`, `remove` or `edit` subcmd) <channel mention (if used with `send` subcmd)|property to edit (if used with `edit` subcmd)>",
-	userPermissions: ['ADMINISTRATOR'],
+	userPermissions: ['Administrator'],
 	dm: false,
 	execute: async (client, message, args, db) => {
 

@@ -5,8 +5,8 @@ module.exports = {
   name: 'kick',
   aliases: [],
   description: 'Kicks a specified user from the guild.',
-  userPermissions: ['KICK_MEMBERS'],
-  botPermissions: ['KICK_MEMBERS'],
+  userPermissions: ['KickMembers'],
+  botPermissions: ['KickMembers'],
   dm: false,
   execute: async (client, message, args, db) => {
 

@@ -8,8 +8,8 @@ module.exports = {
     description: "Closes a modmail channel.",
     usage: "<user_id>",
     dm: false,
-    userPermissions: ['ADMINISTRATOR'],
-    botPermissions: ['MANAGE_CHANNELS', 'MANAGE_THREADS'],
+    userPermissions: ['Administrator'],
+    botPermissions: ['ManageChannels', 'ManageThreads'],
     execute: async (client, message, args, db) => {
 
         const mariposa = client.guilds.cache.find(g => g.id === '879726321155051530')

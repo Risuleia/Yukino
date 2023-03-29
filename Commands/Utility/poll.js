@@ -22,6 +22,9 @@ module.exports = {
 		}
 
 		const polls = await db.get('serverconf')?.polls
+		const pollmanager = await db.get('serverconf')?.pollmanager
+
+		if (!message.member.roles.cache.find(r => r.id === pollmanager) && !message.member.permissions.has(["Administrator"])) return err("You cannot use this command.")
 
 		// number emotes
 		let num = [numbers.one, numbers.two, numbers.three, numbers.four, numbers.five, numbers.six, numbers.seven, numbers.eight, numbers.nine];

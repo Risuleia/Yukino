@@ -5,8 +5,8 @@ module.exports = {
   name: 'ban',
   aliases: [],
   description: 'Bans a specified user from the guild.',
-  userPermissions: ['BAN_MEMBERS'],
-  botPermissions: ['BAN_MEMBERS'],
+  userPermissions: ['BanMembers'],
+  botPermissions: ['BanMembers'],
   dm: false,
   execute: async (client, message, args, db) => {
 

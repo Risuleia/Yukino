@@ -1,7 +1,14 @@
 const client = require("../index");
 const db = require("../db");
+const hello = require("../Utilities/hello")
 
 client.on("messageCreate", async message => {
+
+		if (message.author.bot) return
+
+		const regex = /^\s+|\s+$/gm
+		const temp_msg = message.content.replace(regex, "")
+		if (temp_msg === "<@975047753979809892>") return hello(client, message, db)
 
 		const conf = await db.get('serverconf')
 		const PREFIX = !conf?.prefix ? client.config.prefix : conf.prefix

@@ -6,7 +6,8 @@ module.exports = {
     name: "setrole",
     aliases: ['setrol', 'setr'],
     description: "Sets a specific role for the server configuration.",
-		userPermissions: ['ADMINISTRATOR'],
+		userPermissions: ['Administrator'],
+		dm: false,
     execute: async (client, message, args, db) => {
         
         const chan = message.channel

@@ -5,10 +5,10 @@ module.exports = {
 	name: 'demote',
 	aliases: [],
 	description: 'Demotes a specified user from a staff post.',
-	usage: '<post> <user>',
+	usage: '<post> <user> {post = admin, headmod, mod, tmod, pm, headpm, uploader, pollmanager}',
 	dm: false,
-	userPermissions: ['ADMINISTRATOR'],
-	botPermissions: ['MANAGE_ROLES'],
+	userPermissions: ['ManageRoles'],
+	botPermissions: ['ManageRoles'],
 	execute: async (client, message, args, db) => {
 
 		const err = (str) => {
@@ -74,7 +74,7 @@ module.exports = {
 								.setAuthor({ name: user.user.tag, iconURL: user.displayAvatarURL({ dynamic: true }) })
 								.setTitle('Member demoted')
 								.setDescription(`${user.toString()}\n\n**Post:** ${names[param]}\n**Demoted by:** ${message.author.toString()}`)
-								.setFooter({ text: message.author.id })
+								.setFooter({ text: user.user.id })
 								.setTimestamp(Date.now())
 						]
 					})

@@ -5,8 +5,8 @@ module.exports = {
   name: 'pin',
   aliases: [],
   description: "Pins the message the command is run in reply to.",
-  userPermissions: ['MANAGE_MESSAGES'],
-  botPermissions: ['MANAGE_MESSAGES'],
+  userPermissions: ['ManageMessages'],
+  botPermissions: ['ManageMessages'],
   dm: false,
   execute: async (client, message, args, db) => {
 

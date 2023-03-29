@@ -6,7 +6,8 @@ module.exports = {
 	aliases: ['sete'],
 	description: "Set an embed to be sent on boost or member join.",
 	usage: "<boost/join> <emb>",
-	userPermissions: ['ADMINISTRATOR'],
+	userPermissions: ['Administrator'],
+	dm: false,
 	execute: async (client, message, args, db) => {
 
 		const chan = message.channel

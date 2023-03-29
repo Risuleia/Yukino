@@ -6,7 +6,9 @@ module.exports = {
     name: "setprefix",
     aliases: ['setpref', 'setp'],
     description: "Sets the bot prefix.",
-		userPermissions: ['ADMINISTRATOR'],
+		usage: "<prefix/'default'>",
+		userPermissions: ['Administrator'],
+		dm: false,
     execute: async (client, message, args, db) => {
         
         const chan = message.channel

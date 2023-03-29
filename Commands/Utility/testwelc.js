@@ -6,7 +6,7 @@ module.exports = {
 	name: "testwelc",
 	aliases: [],
 	description: "Tests the welcome message.",
-	userPermissions: ['ADMINISTRATOR'],
+	userPermissions: ['Administrator'],
 	dm: false,
 	execute: async (client, message, args, db) => {
 

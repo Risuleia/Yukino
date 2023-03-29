@@ -5,8 +5,8 @@ module.exports = {
   name: 'mute',
   aliases: [],
   description: 'Mutes a specified user.',
-  userPermissions: ['MODERATE_MEMBERS'],
-  botPermissions: ['MANAGE_ROLES'],
+  userPermissions: ['ModerateMembers'],
+  botPermissions: ['ManageRoles'],
   dm: false,
   execute: async (client, message, args, db) => {
 

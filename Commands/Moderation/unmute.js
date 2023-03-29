@@ -5,8 +5,8 @@ module.exports = {
   name: 'unmute',
   aliases: [],
   description: 'Unmutes a specified user.',
-  userPermissions: ['MANAGE_ROLES'],
-  botPermissions: ['MANAGE_ROLES'],
+  userPermissions: ['ManageRoles'],
+  botPermissions: ['ManageRoles'],
   dm: false,
   execute: async (client, message, args, db) => {
 

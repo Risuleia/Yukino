@@ -2,7 +2,8 @@ module.exports = {
     name: "serverconfig",
     aliases: ['serverconfig', 'serverconf', 'config', 'conf'],
     description: "Shows and changes information related to the server configuration",
-    userPermissions: ['ADMINISTRATOR'],
+    userPermissions: ['Administrator'],
+		dm: false,
     execute: async (client, message, args, db) => {
 
         const role = async (prop) => {

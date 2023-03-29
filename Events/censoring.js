@@ -1,19 +1,25 @@
-// const client = require('../index');
-// const Database = require("@replit/database");
-// const db = new Database();
+const client = require('../index');
+const db = require('../db')
 
-// client.on('messageCreate', msg => {
+client.on('messageCreate', async msg => {
 
-// 	if (!db.get('censored_words')) return
+	const conf = await db.get('serverconf')
+	const PREFIX = conf.prefix || client.config.prefix
+	
+	if (
+		msg.author.bot ||
+		(msg.content.startsWith(`${PREFIX}censor`) && !msg.member.permissions.has('Administrator'))
+	) return
 
-//   db.get('censored_words').then(words => {
-//     if (msg.author.bot) return
-//     if (msg.content.startsWith(`${client.config.prefix}censor`)) return
+	const censored_words = await db.get('censored_words')
+	if (!censored_words) return
 
-//     if (words?.some(word => msg.content?.toLowerCase().includes(word))) {
-//       msg.delete()
-//         .catch((e) => console.log(e))
-//     }
-//   })
+	if (censored_words.some(word => msg.content?.includes(word))) {
+		try {
+			msg.delete()
+		} catch (err) {
+			return
+		}
+	}
 
-// })
+})

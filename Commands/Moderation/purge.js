@@ -5,8 +5,8 @@ module.exports = {
     name: "purge",
     aliases: ['purge'],
     description: "Purges messages. Atmost, 100 message can be purged.",
-    userPermissions: ['MANAGE_MESSAGES'],
-    botPermissions: ['MANAGE_MESSAGES'],
+    userPermissions: ['ManageMessages'],
+    botPermissions: ['ManageMessages'],
     dm: false,
     execute: async (client, message, args, db) => {
 

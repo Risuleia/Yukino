@@ -15,11 +15,11 @@ const sendboost = async (author, chan) => {
 	let emb = embeds.find(e => e.name === boostemb)
 	if (!emb) return
 	let translated = {
-		color: translate(author, author.guild, chan, emb.embed.color),
-		title: emb.embed.title ? translate(author, author.guild, chan, emb.embed.title) : emb.embed.title,
-		description: translate(author, author.guild, chan, emb.embed.description),
-		image: emb.embed.image ? translate(author, author.guild, chan, emb.embed.image) : emb.embed.image,
-		thumbnail: emb.embed.thumbnail ? translate(author, author.guild, chan, emb.embed.thumbnail) : emb.embed.thumbnail,
+		color: translate(author, chan.guild, chan, emb.embed.color),
+		title: emb.embed.title ? translate(author, chan.guild, chan, emb.embed.title) : emb.embed.title,
+		description: translate(author, chan.guild, chan, emb.embed.description),
+		image: emb.embed.image ? translate(author, chan.guild, chan, emb.embed.image) : emb.embed.image,
+		thumbnail: emb.embed.thumbnail ? translate(author, chan.guild, chan, emb.embed.thumbnail) : emb.embed.thumbnail,
 		timestamp: emb.embed.timestamp
 	}
 

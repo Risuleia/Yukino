@@ -2,8 +2,8 @@ module.exports = {
   name: 'censor',
   aliases: [],
   description: "Add/removes a specific word from the censor list. Displays the censor list if used with the 'list' parameter.",
-  userPermissions: ['MANAGE_MESSAGES'],
-  botPermissions: ['MANAGE_MESSAGES'],
+  userPermissions: ['ManageMessages'],
+  botPermissions: ['ManageMessages'],
   execute: async (client, message, args, db) => {
 
     const wordItem = args.slice(1,args.length).join(` `).toLowerCase();
